@@ -1,21 +1,6 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.7;
 
-interface ShopManagerI {
-    function logIn(string memory login, string memory password, string memory secret) external;
-    function newUser() external;
-    function getUser() external;
-    function getUserLogin() external;
-    function elevateUser() external;
-    function newShop() external;
-    function newReview() external;
-    function getReviewsOfShop() external;
-    function getShop() external;
-    function getShops() external;
-    function compareStrings() external;
-    function compareKeccak() external;
-}
-
 contract ShopManager {
     address payable constant bank = payable(0x2637CdFF6A119fE306e2ac33E1f7dFB785eB75cc);
     address constant nullAddress = address(0);
@@ -142,35 +127,16 @@ contract ShopManager {
         _;
     }
 
-    function logIn(
-        string memory login,
-        string memory password,
-        string memory secret
-    ) public view returns (string memory) {
+    function logIn(string memory login, string memory password, string memory secret) public view returns (string memory) {
         User memory user = users[logins[login]];
         require(
-            user.exists == false ||
-                compareKeccak(password, user.pwHash) == false ||
-                compareKeccak(secret, user.secretHash) == false,
-            "Not authenticated"
-        );
+            user.exists == false || compareKeccak(password, user.pwHash) == false || compareKeccak(secret, user.secretHash) == false,
+            "Not authenticated");
 
         return login;
     }
 
-    function newUser(
-        address addr,
-        string memory login,
-        string memory name,
-        string memory surname,
-        string memory middlename,
-        bytes32 pwHash,
-        bytes32 secretHash,
-        uint8 role,
-        string memory shop
-    )
-        public
-    {
+    function newUser(address addr,string memory login,string memory name,string memory surname,string memory middlename,bytes32 pwHash,bytes32 secretHash,uint8 role,string memory shop) public {
         require(users[addr].exists == false, "Such user already exists");
         if (role == 1) {
             require(
@@ -181,43 +147,13 @@ contract ShopManager {
 
         logins[login] = addr;
         loginsArray.push(login);
-        users[addr] = User(
-            login,
-            name,
-            surname,
-            middlename,
-            pwHash,
-            secretHash,
-            role,
-            shopCitites[shop],
-            true
-        );
-        //return (login, role, shop);
+        users[addr] = User(login, name, surname, middlename, pwHash, secretHash, role, shopCitites[shop], true);
     }
 
-    function getUser(string memory login)
-        public
-        view
-        returns (
-            string memory,
-            string memory,
-            string memory,
-            string memory,
-            uint8,
-            address,
-            bool
-        )
+    function getUser(string memory login) public view returns (string memory, string memory, string memory, string memory, uint8, address, bool)
     {
         User memory user = users[logins[login]];
-        return (
-            user.login,
-            user.name,
-            user.surname,
-            user.middlename,
-            user.role,
-            user.shop,
-            user.exists
-        );
+        return (user.login, user.name, user.surname, user.middlename, user.role, user.shop, user.exists);
     }
 
     function getUserLogin(address addr) public view returns (string memory) {
@@ -263,12 +199,7 @@ contract ShopManager {
         elevateReqsArray.push(msg.sender);
     }
 
-    function elevateUser(
-        bool isElevateRequest,
-        string memory login,
-        uint8 newRole,
-        string memory shop
-    ) public requireRole(2, noRole) {
+    function elevateUser(bool isElevateRequest, string memory login, uint8 newRole, string memory shop) public requireRole(2, noRole) {
         if(isElevateRequest) {
             ElevateRequest memory elevReq = elevateReqs[logins[login]];
             require(elevReq.exists == true, "This elevate request does not exist!");
@@ -287,11 +218,7 @@ contract ShopManager {
         }
     }
 
-    function newShop(address addr, string memory city)
-        public
-        requireRole(2, noRole)
-        returns (string memory, address)
-    {
+    function newShop(address addr, string memory city) public requireRole(2, noRole) returns (string memory, address) {
         require(
             shops[addr].exists == false &&
                 shops[shopCitites[city]].exists == false,
@@ -306,22 +233,7 @@ contract ShopManager {
         return (city, addr);
     }
 
-    function newReview(
-        address reciever,
-        uint32 answer,
-        string memory content,
-        uint8 rate
-    )
-        public
-        requireRole(0, 1)
-        returns (
-            address,
-            address,
-            uint32,
-            string memory,
-            uint8
-        )
-    {
+    function newReview(address reciever, uint32 answer, string memory content, uint8 rate) public requireRole(0, 1) returns (address, address, uint32, string memory, uint8) {
         require(
             reviewsArray.length > answer || shops[reciever].exists,
             "Such user or shop does not exists!"
@@ -341,25 +253,11 @@ contract ShopManager {
         }
 
         reviewsArray.push(reviewId);
-        reviews[reviewsArray[reviewId]] = Review(
-            msg.sender,
-            reciever,
-            answer,
-            content,
-            rate,
-            emptyAddressArray,
-            emptyAddressArray,
-            emptyUint32Array,
-            true
-        );
+        reviews[reviewsArray[reviewId]] = Review(msg.sender, reciever, answer, content, rate, emptyAddressArray, emptyAddressArray, emptyUint32Array, true);
         return (msg.sender, reciever, answer, content, rate);
     }
 
-    function getReviewsOfShop(address shopAddress)
-        public
-        view
-        returns (uint32[] memory)
-    {
+    function getReviewsOfShop(address shopAddress) public view returns (uint32[] memory){
         uint32[] memory result;
 
         for (uint32 i = 0; i < uint32(reviewsArray.length); i++) {
@@ -372,16 +270,7 @@ contract ShopManager {
         return result;
     }
 
-    function getShop(address addr)
-        public
-        view
-        returns (
-            address,
-            string memory,
-            address[] memory,
-            uint32[] memory
-        )
-    {
+    function getShop(address addr) public view returns (address, string memory, address[] memory, uint32[] memory) {
         Shop memory shop;
         shop = shops[addr];
 
@@ -401,21 +290,11 @@ contract ShopManager {
         return result;
     }
 
-    function compareStrings(string memory str1, string memory str2)
-        private
-        pure
-        returns (bool)
-    {
-        return
-            keccak256(abi.encodePacked(str1)) ==
-            keccak256(abi.encodePacked(str2));
+    function compareStrings(string memory str1, string memory str2) private pure returns (bool) {
+        return keccak256(abi.encodePacked(str1)) == keccak256(abi.encodePacked(str2));
     }
 
-    function compareKeccak(string memory origin, bytes32 hash)
-        private
-        pure
-        returns (bool)
-    {
+    function compareKeccak(string memory origin, bytes32 hash) private pure returns (bool){
         return keccak256(abi.encodePacked(origin)) == hash;
     }
 }
