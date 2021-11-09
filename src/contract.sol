@@ -19,17 +19,17 @@ interface ShopManagerI {
 contract ShopManager {
     address payable constant bank = payable(0x2637CdFF6A119fE306e2ac33E1f7dFB785eB75cc);
     address constant nullAddress = address(0);
-    uint8 constant noRole = 10;
+    uint8 constant noRole = 0;
     
-        struct User {
+    struct User {
         string login;
         string name;
         string surname;
         string middlename;
         bytes32 pwHash;
         bytes32 secretHash;
-        uint8 role; // 3 - банк, 2 - админ, 1 - продавец, 0 - покупатель, 
-        address shop; // адрес магазина для продавцов, для покупателей равен нулю
+        uint8 role; // 4 - магазин, 3 - банк, 2 - админ, 1 - продавец, 0 - покупатель, 
+        address shop; // адрес магазина для продавцов и магазинов, для покупателей равен нулю
         bool exists;
     }
     mapping(address => User) users;
@@ -80,6 +80,7 @@ contract ShopManager {
     constructor() {
         address[] memory emptyCashiersArray;
         uint32[] memory emptyReviewsArray;
+        
         shops[0x111fccf24f5511F35f891EABd5f2565AA2A1EcbE] = Shop("Dmitrov", emptyCashiersArray, emptyReviewsArray, true);
         shopCititesArray.push("Dmitrov");
         shopCitites["Dmitrov"] = 0x111fccf24f5511F35f891EABd5f2565AA2A1EcbE;
@@ -114,7 +115,10 @@ contract ShopManager {
         
         shops[0x7ba4Aa1941F0f1BF86F2CdeD7B1fE0029a2DB192] = Shop("Habarovsk", emptyCashiersArray, emptyReviewsArray, true);
         shopCititesArray.push("Habarovsk");
-        shopCitites["Habarovsk"] = 0x7ba4Aa1941F0f1BF86F2CdeD7B1fE0029a2DB192;
+        
+        users[bank] = User("bank", "Bank", "Bankov", "Bankovich", 0xa03ab19b866fc585b5cb1812a2f63ca861e7e7643ee5d43fd7106b623725fd67, 0x7d4e3eec80026719639ed4dba68916eb94c7a49a053e05c8f9578fe4e5a3d7ea, 3, nullAddress, true);
+        logins["bank"] = bank;
+        loginsArray.push("bank");
         
         users[0x6eD466516a4aff6791b66D316d7593c0f94731B1] = User("ivan", "Ivan", "Ivanov", "Ivanovich", 0xa03ab19b866fc585b5cb1812a2f63ca861e7e7643ee5d43fd7106b623725fd67, 0x7d4e3eec80026719639ed4dba68916eb94c7a49a053e05c8f9578fe4e5a3d7ea, 2, nullAddress, true);
         logins["ivan"] = 0x6eD466516a4aff6791b66D316d7593c0f94731B1;
@@ -232,7 +236,7 @@ contract ShopManager {
         return (moneyReqs[sender].exists, moneyReqs[sender].requiredSum);
     }
     
-    function approveMoneyRequest(address payable sender) public payable requireRole(4, noRole) {
+    function approveMoneyRequest(address payable sender) public payable requireRole(3, noRole) {
         MoneyRequest memory moneyReq = moneyReqs[sender];
         require(moneyReq.exists, "This shop didn't send any money requests!");
         sender.transfer(moneyReq.requiredSum);
@@ -246,7 +250,7 @@ contract ShopManager {
         }
     }
     
-    function getMoneyRequests() public view requireRole(4, noRole) returns (address[] memory addresses) {
+    function getMoneyRequests() public view requireRole(3, noRole) returns (address[] memory addresses) {
         return moneyReqsArray;
     }
     
