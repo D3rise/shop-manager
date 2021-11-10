@@ -87,6 +87,276 @@ contract ShopManager {
     mapping(string => MoneyRequest) moneyReqs;
     string[] moneyReqsArray;
 
+    //// КОНСТРУКТОР КОНТРАКТА
+    constructor() {
+        uint32[] memory emptyReviews;
+
+        /// Магазины
+        // Дмитров
+        users[0x45C16acB0b0a616994c5dbAc60C05E4453029093] = User(
+            "dmitrov",
+            "Dmitrov Shop",
+            0xa03ab19b866fc585b5cb1812a2f63ca861e7e7643ee5d43fd7106b623725fd67,
+            0x7d4e3eec80026719639ed4dba68916eb94c7a49a053e05c8f9578fe4e5a3d7ea,
+            Role.SHOP,
+            "Dmitrov",
+            emptyReviews,
+            true
+        );
+        userLogins["dmitrov"] = 0x45C16acB0b0a616994c5dbAc60C05E4453029093;
+        userLoginsArray.push("dmitrov");
+        shops["Dmitrov"] = Shop(
+            "Dmitrov",
+            0x45C16acB0b0a616994c5dbAc60C05E4453029093,
+            true
+        );
+        shopCitites.push("Dmitrov");
+
+        // Калуга
+        users[0xEd637709F4EDaC6A5008FB7405794e753A1Ead90] = User(
+            "kaluga",
+            "Kaluga Shop",
+            0xa03ab19b866fc585b5cb1812a2f63ca861e7e7643ee5d43fd7106b623725fd67,
+            0x7d4e3eec80026719639ed4dba68916eb94c7a49a053e05c8f9578fe4e5a3d7ea,
+            Role.SHOP,
+            "Kaluga",
+            emptyReviews,
+            true
+        );
+        userLogins["kaluga"] = 0xEd637709F4EDaC6A5008FB7405794e753A1Ead90;
+        userLoginsArray.push("kaluga");
+        shops["Kaluga"] = Shop(
+            "Dmitrov",
+            0xEd637709F4EDaC6A5008FB7405794e753A1Ead90,
+            true
+        );
+        shopCitites.push("Kaluga");
+
+        // Москва
+        users[0x26280BC071E734EbbFBBa9EEeF0a7c2FaF1Ba4A5] = User(
+            "moscow",
+            "Moscow Shop",
+            0xa03ab19b866fc585b5cb1812a2f63ca861e7e7643ee5d43fd7106b623725fd67,
+            0x7d4e3eec80026719639ed4dba68916eb94c7a49a053e05c8f9578fe4e5a3d7ea,
+            Role.SHOP,
+            "Moscow",
+            emptyReviews,
+            true
+        );
+        userLogins["moscow"] = 0x26280BC071E734EbbFBBa9EEeF0a7c2FaF1Ba4A5;
+        userLoginsArray.push("moscow");
+        shops["Moscow"] = Shop(
+            "Moscow",
+            0x26280BC071E734EbbFBBa9EEeF0a7c2FaF1Ba4A5,
+            true
+        );
+        shopCitites.push("Moscow");
+
+        // Рязань
+        users[0xf3a7531B5991AeDeeAB93B43300Ea2be0f26DEd9] = User(
+            "ryazan",
+            "Ryazan Shop",
+            0xa03ab19b866fc585b5cb1812a2f63ca861e7e7643ee5d43fd7106b623725fd67,
+            0x7d4e3eec80026719639ed4dba68916eb94c7a49a053e05c8f9578fe4e5a3d7ea,
+            Role.SHOP,
+            "Ryazan",
+            emptyReviews,
+            true
+        );
+        userLogins["ryazan"] = 0xf3a7531B5991AeDeeAB93B43300Ea2be0f26DEd9;
+        userLoginsArray.push("ryazan");
+        shops["Ryazan"] = Shop(
+            "Ryazan",
+            0xf3a7531B5991AeDeeAB93B43300Ea2be0f26DEd9,
+            true
+        );
+        shopCitites.push("Ryazan");
+
+        // Самара
+        users[0x45483719e57a7b10C73e842aABf9B009D1fe2E32] = User(
+            "samara",
+            "Samara Shop",
+            0xa03ab19b866fc585b5cb1812a2f63ca861e7e7643ee5d43fd7106b623725fd67,
+            0x7d4e3eec80026719639ed4dba68916eb94c7a49a053e05c8f9578fe4e5a3d7ea,
+            Role.SHOP,
+            "Samara",
+            emptyReviews,
+            true
+        );
+        userLogins["samara"] = 0x45483719e57a7b10C73e842aABf9B009D1fe2E32;
+        userLoginsArray.push("samara");
+        shops["Samara"] = Shop(
+            "Samara",
+            0x45483719e57a7b10C73e842aABf9B009D1fe2E32,
+            true
+        );
+        shopCitites.push("Samara");
+
+        // Санкт-Петербург
+        users[0x1567f49dd576775d225D9C987880deE8e2e0e3DA] = User(
+            "saint-petersburg",
+            "Saint Petersburg Shop",
+            0xa03ab19b866fc585b5cb1812a2f63ca861e7e7643ee5d43fd7106b623725fd67,
+            0x7d4e3eec80026719639ed4dba68916eb94c7a49a053e05c8f9578fe4e5a3d7ea,
+            Role.SHOP,
+            "Saint Petersburg",
+            emptyReviews,
+            true
+        );
+        userLogins[
+            "saint-peterspurg"
+        ] = 0x1567f49dd576775d225D9C987880deE8e2e0e3DA;
+        userLoginsArray.push("saint-petersburg");
+        shops["Saint Petersburg"] = Shop(
+            "Saint Petersburg",
+            0x1567f49dd576775d225D9C987880deE8e2e0e3DA,
+            true
+        );
+        shopCitites.push("Saint Petersburg");
+
+        // Таганрог
+        users[0xA35cD8F38607cE823Ee307FfAF57F859762AecDc] = User(
+            "taganrog",
+            "Taganrog Shop",
+            0xa03ab19b866fc585b5cb1812a2f63ca861e7e7643ee5d43fd7106b623725fd67,
+            0x7d4e3eec80026719639ed4dba68916eb94c7a49a053e05c8f9578fe4e5a3d7ea,
+            Role.SHOP,
+            "Taganrog",
+            emptyReviews,
+            true
+        );
+        userLogins["taganrog"] = 0xA35cD8F38607cE823Ee307FfAF57F859762AecDc;
+        userLoginsArray.push("taganrog");
+        shops["Taganrog"] = Shop(
+            "Taganrog",
+            0xA35cD8F38607cE823Ee307FfAF57F859762AecDc,
+            true
+        );
+        shopCitites.push("Taganrog");
+
+        // Томск
+        users[0x6a052A062A54344363b67BaD3B3FAfD6220Ac333] = User(
+            "tomsk",
+            "Tomsk Shop",
+            0xa03ab19b866fc585b5cb1812a2f63ca861e7e7643ee5d43fd7106b623725fd67,
+            0x7d4e3eec80026719639ed4dba68916eb94c7a49a053e05c8f9578fe4e5a3d7ea,
+            Role.SHOP,
+            "Tomsk",
+            emptyReviews,
+            true
+        );
+        userLogins["tomsk"] = 0x6a052A062A54344363b67BaD3B3FAfD6220Ac333;
+        userLoginsArray.push("tomsk");
+        shops["Tomsk"] = Shop(
+            "Tomsk",
+            0x6a052A062A54344363b67BaD3B3FAfD6220Ac333,
+            true
+        );
+        shopCitites.push("Tomsk");
+
+        // Хабаровск
+        users[0x602E85A431e7cFB8489aFE0FF40EDa6C2B968afD] = User(
+            "habarovsk",
+            "Habarovsk Shop",
+            0xa03ab19b866fc585b5cb1812a2f63ca861e7e7643ee5d43fd7106b623725fd67,
+            0x7d4e3eec80026719639ed4dba68916eb94c7a49a053e05c8f9578fe4e5a3d7ea,
+            Role.SHOP,
+            "Habarovsk",
+            emptyReviews,
+            true
+        );
+        userLogins["habarovsk"] = 0x602E85A431e7cFB8489aFE0FF40EDa6C2B968afD;
+        userLoginsArray.push("habrovsk");
+        shops["Habarovsk"] = Shop(
+            "Habarovsk",
+            0x602E85A431e7cFB8489aFE0FF40EDa6C2B968afD,
+            true
+        );
+        shopCitites.push("Habarovsk");
+
+        // struct User {
+        //     string login;
+        //     string fullName;
+        //     bytes32 pwHash;
+        //     bytes32 secretHash;
+        //     Role role; // 5 - администратор, 4 - банк, 3 - магазин, 2 - поставщик, 1 - продавец, 0 - покупатель
+        //     string shop; // для продавцов и аккаунтов магазинов
+        //     uint32[] reviews; // отзывы
+        //     bool exists;
+        // }
+
+        /// ПОЛЬЗОВАТЕЛИ
+        // Банк
+        users[0x2641D38Ed882F3E2Ea5F45f922Cded9D72ad09f7] = User(
+            "bank",
+            "Bank",
+            0xa03ab19b866fc585b5cb1812a2f63ca861e7e7643ee5d43fd7106b623725fd67,
+            0x7d4e3eec80026719639ed4dba68916eb94c7a49a053e05c8f9578fe4e5a3d7ea,
+            Role.BANK,
+            "",
+            emptyReviews,
+            true
+        );
+        userLogins["bank"] = 0x2641D38Ed882F3E2Ea5F45f922Cded9D72ad09f7;
+        userLoginsArray.push("bank");
+
+        // Поставщик
+        users[0x8a3e473eeDab5Ff476A4d9E2EeEE289d1feBC7b3] = User(
+            "goldfish",
+            "Gold Fish",
+            0xa03ab19b866fc585b5cb1812a2f63ca861e7e7643ee5d43fd7106b623725fd67,
+            0x7d4e3eec80026719639ed4dba68916eb94c7a49a053e05c8f9578fe4e5a3d7ea,
+            Role.PROVIDER,
+            "",
+            emptyReviews,
+            true
+        );
+        userLogins["goldfish"] = 0x8a3e473eeDab5Ff476A4d9E2EeEE289d1feBC7b3;
+        userLoginsArray.push("goldfish");
+
+        // Администратор
+        users[0xBC03ee8CDE310F36F2a6f04C9965Caeb11bA315a] = User(
+            "admin",
+            "Ivanov Ivan Ivanovich",
+            0xa03ab19b866fc585b5cb1812a2f63ca861e7e7643ee5d43fd7106b623725fd67,
+            0x7d4e3eec80026719639ed4dba68916eb94c7a49a053e05c8f9578fe4e5a3d7ea,
+            Role.ADMIN,
+            "",
+            emptyReviews,
+            true
+        );
+        userLogins["admin"] = 0xBC03ee8CDE310F36F2a6f04C9965Caeb11bA315a;
+        userLoginsArray.push("admin");
+
+        // Продавец
+        users[0xDD28c05343B9D59F922202918C0f8c4802Be312f] = User(
+            "semen",
+            "Semenov Semen Semenovich",
+            0xa03ab19b866fc585b5cb1812a2f63ca861e7e7643ee5d43fd7106b623725fd67,
+            0x7d4e3eec80026719639ed4dba68916eb94c7a49a053e05c8f9578fe4e5a3d7ea,
+            Role.CASHIER,
+            "Dmitrov",
+            emptyReviews,
+            true
+        );
+        userLogins["semen"] = 0xDD28c05343B9D59F922202918C0f8c4802Be312f;
+        userLoginsArray.push("semen");
+
+        // Покупатель
+        users[0xB7e3fFc2f94cE0a3ccFc599270d8023d8Ab9cac6] = User(
+            "petr",
+            "Petrov Petr Petrovich",
+            0xa03ab19b866fc585b5cb1812a2f63ca861e7e7643ee5d43fd7106b623725fd67,
+            0x7d4e3eec80026719639ed4dba68916eb94c7a49a053e05c8f9578fe4e5a3d7ea,
+            Role.BUYER,
+            "",
+            emptyReviews,
+            true
+        );
+        userLogins["petr"] = 0xB7e3fFc2f94cE0a3ccFc599270d8023d8Ab9cac6;
+        userLoginsArray.push("petr");
+    }
+
     //// МОДИФИКАТОРЫ
     // Модификатор требования роли
     modifier onlyAdmin() {
