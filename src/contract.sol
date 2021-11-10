@@ -15,7 +15,7 @@ contract ShopManager {
         "You are not permitted to execute this operation";
 
     address payable constant bank =
-        payable(0x2637CdFF6A119fE306e2ac33E1f7dFB785eB75cc);
+        payable(0x2641D38Ed882F3E2Ea5F45f922Cded9D72ad09f7);
     address constant nullAddress = address(0);
 
     // Структура пользователя
@@ -273,18 +273,7 @@ contract ShopManager {
             true
         );
         shopCitites.push("Habarovsk");
-
-        // struct User {
-        //     string login;
-        //     string fullName;
-        //     bytes32 pwHash;
-        //     bytes32 secretHash;
-        //     Role role; // 5 - администратор, 4 - банк, 3 - магазин, 2 - поставщик, 1 - продавец, 0 - покупатель
-        //     string shop; // для продавцов и аккаунтов магазинов
-        //     uint32[] reviews; // отзывы
-        //     bool exists;
-        // }
-
+        
         /// ПОЛЬЗОВАТЕЛИ
         // Банк
         users[0x2641D38Ed882F3E2Ea5F45f922Cded9D72ad09f7] = User(
