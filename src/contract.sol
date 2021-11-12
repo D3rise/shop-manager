@@ -126,7 +126,7 @@ contract ShopManager {
         userLogins["kaluga"] = 0xEd637709F4EDaC6A5008FB7405794e753A1Ead90;
         userLoginsArray.push("kaluga");
         shops["Kaluga"] = Shop(
-            "Dmitrov",
+            "Kaluga",
             0xEd637709F4EDaC6A5008FB7405794e753A1Ead90,
             true
         );
@@ -391,15 +391,15 @@ contract ShopManager {
     // Функция входа в аккаунт
     function authenticateUser(
         string memory username,
-        string memory password,
-        string memory secret
+        bytes32 pwHash,
+        bytes32 secretHash
     ) public view returns (string memory loginAuthenticated) {
         User memory user = users[userLogins[username]];
 
         require(user.exists, "User does not exist");
         require(
-            compareKeccak(password, user.pwHash) == true &&
-                compareKeccak(secret, user.secretHash),
+            pwHash == user.pwHash &&
+                secretHash == user.secretHash,
             "Wrong password or secret"
         );
 
@@ -822,14 +822,5 @@ contract ShopManager {
         return
             keccak256(abi.encodePacked(str1)) ==
             keccak256(abi.encodePacked(str2));
-    }
-
-    // Сравнить хеши
-    function compareKeccak(string memory origin, bytes32 hash)
-        private
-        pure
-        returns (bool)
-    {
-        return keccak256(abi.encodePacked(origin)) == hash;
     }
 }

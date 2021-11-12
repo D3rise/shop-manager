@@ -1,17 +1,13 @@
 import { useNavigate } from "react-router";
 import { UseContext } from "../../hooks/storage";
 
-export function Home() {
+export const Dashboard = () => {
   const { user } = UseContext();
   const navigate = useNavigate();
 
-  if (user.login) {
-    navigate("/dashboard");
+  if (!user.login) {
+    navigate("/login");
   }
 
-  return (
-    <>
-      <h1>Hello world!</h1>
-    </>
-  );
-}
+  return null;
+};

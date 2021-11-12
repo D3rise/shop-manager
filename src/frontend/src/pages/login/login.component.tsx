@@ -1,77 +1,111 @@
-import React from "react";
+import React, { FormEvent, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { UseContext } from "../../hooks/storage";
 
-interface IProps {}
 interface IState {
-  name: string;
+  username: string;
   password: string;
   secret: string;
-  [x: string]: string | boolean;
+  [x: string]: any;
 }
 
-export class Login extends React.Component<IProps, IState> {
-  constructor(props: IProps) {
-    super(props);
-    this.state = {
-      name: "",
-      password: "",
-      secret: "",
-    };
+export const Login = () => {
+  const navigate = useNavigate();
+  const { web3, contract, user, setUser } = UseContext();
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+  useEffect(() => {
+    if (user.login) {
+      navigate("/dashboard");
+    }
+  });
 
-  handleChange(event: React.FormEvent<HTMLInputElement>) {
+  const [state, setState] = useState<IState>({
+    username: "",
+    password: "",
+    secret: "",
+  });
+
+  const handleSubmit = async (event: FormEvent) => {
+    event.preventDefault();
+    const { username, password, secret } = state;
+    const address = await contract.methods.getUserAddress(username).call();
+
+    if (user.login) {
+      navigate("/");
+    }
+
+    try {
+      await web3!.eth.personal.unlockAccount(address, password, 0);
+
+      await contract.methods
+        .authenticateUser(
+          username,
+          web3?.utils.sha3(password),
+          web3?.utils.sha3(secret)
+        )
+        .call();
+    } catch (e) {
+      return alert("Wrong login, password or secret!");
+    }
+
+    const role = await contract.getUser(address).call()[3];
+
+    setUser({
+      login: username,
+      address,
+      role,
+    });
+    alert("success");
+    navigate("/");
+  };
+
+  const handleChange = (event: FormEvent<HTMLInputElement>) => {
     const target = event.currentTarget;
     const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
 
-    this.setState({
+    setState({
+      ...state,
       [name]: value,
     });
-  }
+  };
 
-  handleSubmit(event: React.FormEvent) {
-    alert("Введенное имя: " + this.state.name);
-    alert("Введенный пароль: " + this.state.password);
-    alert("Введенный секрет: " + this.state.secret);
-    event.preventDefault();
-  }
-
-  render() {
-    return (
-      <form onSubmit={this.handleSubmit}>
-        <label>
-          Имя:
-          <input
-            name="name"
-            value={this.state.name}
-            onChange={this.handleChange}
-          ></input>
-        </label>
-        <br />
-        <label>
-          Пароль:
-          <input
-            name="password"
-            value={this.state.password}
-            type="password"
-            onChange={this.handleChange}
-          ></input>
-        </label>
-        <br />
-        <label>
-          Секрет:
-          <input
-            name="secret"
-            value={this.state.secret}
-            type="password"
-            onChange={this.handleChange}
-          ></input>
-        </label>
-        <br />
-        <button type="submit">Отправить</button>
-      </form>
-    );
-  }
-}
+  return (
+    <div className="login-page">
+      <div className="login_page__form">
+        <form onSubmit={handleSubmit}>
+          <label>
+            Имя:
+            <input
+              name="username"
+              value={state.username}
+              onChange={handleChange}
+            ></input>
+          </label>
+          <br />
+          <label>
+            Пароль:
+            <input
+              name="password"
+              value={state.password}
+              type="password"
+              onChange={handleChange}
+            ></input>
+          </label>
+          <br />
+          <label>
+            Секрет:
+            <input
+              name="secret"
+              value={state.secret}
+              type="password"
+              onChange={handleChange}
+            ></input>
+          </label>
+          <br />
+          <button type="submit">Отправить</button>
+        </form>
+      </div>
+    </div>
+  );
+};
