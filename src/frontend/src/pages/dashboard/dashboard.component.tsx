@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router";
-import { UseContext } from "../../hooks/storage";
+import { useContext } from "../../hooks/storage";
 
 export const Dashboard = () => {
-  const { user } = UseContext();
+  const { user } = useContext();
   const navigate = useNavigate();
 
   if (!user.login) {

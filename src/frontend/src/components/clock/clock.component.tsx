@@ -1,35 +1,17 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 
-interface IProps {}
-interface IState {
-  date: Date;
-}
+export const Clock = () => {
+  const [date, setDate] = useState(new Date());
+  const timerID: any = useRef(null);
 
-export class Clock extends React.Component<IProps, IState> {
-  timerID: any;
-  constructor(props: IProps) {
-    super(props);
-    this.state = { date: new Date() };
-  }
+  useEffect(() => {
+    timerID.current = setInterval(() => setDate(new Date()), 1000);
+    return () => clearInterval(timerID.current);
+  });
 
-  componentDidMount() {
-    this.timerID = setInterval(() => this.setState({ date: new Date() }), 1000);
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.timerID);
-  }
-
-  tick() {
-    this.setState({ date: new Date() });
-  }
-
-  render() {
-    return (
-      <h2 style={{ textAlign: "right" }}>
-        {this.state.date.getHours()}:{this.state.date.getMinutes()}:
-        {this.state.date.getSeconds()}
-      </h2>
-    );
-  }
-}
+  return (
+    <h2 style={{ textAlign: "right" }}>
+      {date.getHours()}:{date.getMinutes()}:{date.getSeconds()}
+    </h2>
+  );
+};

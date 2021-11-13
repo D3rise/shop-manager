@@ -1,9 +1,9 @@
 import { FormEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import { UseContext } from "../../hooks/storage";
+import { useContext } from "../../hooks/storage";
 
 export const Signup = () => {
-  const { web3, contract, user, setUser } = UseContext();
+  const { web3, contract, user, setUser } = useContext();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -35,32 +35,40 @@ export const Signup = () => {
 
     const { username, password, secret, fullName } = state;
 
-    web3?.eth.personal.newAccount(password).then(async (address) => {
-      const pwHash = web3?.utils.keccak256(password);
-      const secretHash = web3?.utils.keccak256(secret);
+    contract.methods
+      .getUserAddress(username.toLowerCase())
+      .call()
+      .then(async (res: any) => {
+        if (await contract.methods.getUser(res).call()[0]) {
+          return alert("Such user already exists!");
+        }
 
-      try {
-        await contract.methods.newUser(
-          address,
-          username,
-          fullName,
-          pwHash,
-          secretHash
-        );
+        const address = await web3?.eth.personal.newAccount(password);
+        const pwHash = web3?.utils.keccak256(password);
+        const secretHash = web3?.utils.keccak256(secret);
 
-        const role = await contract.methods.getUser(address).call()[3];
+        try {
+          await contract.methods.newUser(
+            address,
+            username,
+            fullName,
+            pwHash,
+            secretHash
+          );
 
-        setUser({
-          login: username,
-          address,
-          role,
-        });
+          const role = await contract.methods.getUser(address).call()[3];
 
-        navigate("/dashboard");
-      } catch (e) {
-        return alert("Such user already exists!");
-      }
-    });
+          setUser({
+            login: username,
+            address,
+            role,
+          });
+
+          navigate("/dashboard");
+        } catch (e) {
+          return alert("Such user already exists!");
+        }
+      });
   };
 
   return (

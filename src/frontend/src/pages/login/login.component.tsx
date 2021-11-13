@@ -1,6 +1,6 @@
 import React, { FormEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { UseContext } from "../../hooks/storage";
+import { useContext } from "../../hooks/storage";
 
 interface IState {
   username: string;
@@ -11,7 +11,7 @@ interface IState {
 
 export const Login = () => {
   const navigate = useNavigate();
-  const { web3, contract, user, setUser } = UseContext();
+  const { web3, contract, user, setUser } = useContext();
 
   useEffect(() => {
     if (user.login) {
@@ -45,6 +45,7 @@ export const Login = () => {
         )
         .call();
     } catch (e) {
+      console.error(e);
       return alert("Wrong login, password or secret!");
     }
 

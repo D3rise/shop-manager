@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
-import { UseContext } from "../../hooks/storage";
+import { useContext } from "../../hooks/storage";
 
 export const Logout = () => {
-  const { user, setUser } = UseContext();
+  const { user, setUser } = useContext();
   const navigate = useNavigate();
 
   useEffect(() => {

@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { Shop } from "../../components/shop/shop.component";
-import { UseContext } from "../../hooks/storage";
+import { useContext } from "../../hooks/storage";
 
 export const Shops = () => {
-  const { contract } = UseContext();
+  const { contract } = useContext();
   const [shops, setShops] = useState([]);
 
   const getShops = async () => {
@@ -17,7 +17,7 @@ export const Shops = () => {
 
   const getShopsList = () =>
     shops.map((city: string) => (
-      <li>
+      <li key={city}>
         <Shop shopCity={city} />
       </li>
     ));

@@ -1,13 +1,16 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router";
-import { UseContext } from "../../hooks/storage";
+import { useContext } from "../../hooks/storage";
 
 export function Home() {
-  const { user } = UseContext();
+  const { user } = useContext();
   const navigate = useNavigate();
 
-  if (user.login) {
-    navigate("/dashboard");
-  }
+  useEffect(() => {
+    if (user.login) {
+      navigate("/dashboard");
+    }
+  });
 
   return (
     <>

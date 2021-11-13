@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { UseContext } from "../../hooks/storage";
+import { useContext } from "../../hooks/storage";
 import { Clock } from "../clock/clock.component";
 import { UserInfo } from "../userinfo/userinfo.component";
 
 export function Header() {
-  const { user } = UseContext();
+  const { user } = useContext();
   const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {

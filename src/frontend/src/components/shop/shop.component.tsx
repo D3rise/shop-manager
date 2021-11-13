@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { UseContext } from "../../hooks/storage";
+import { useContext } from "../../hooks/storage";
 
 export interface IShop {
   shopCity?: string;
@@ -8,7 +8,7 @@ export interface IShop {
 }
 
 export const Shop = (props: IShop) => {
-  const { contract } = UseContext();
+  const { contract } = useContext();
   const [shop, setShop] = useState([]);
 
   const getShop = async () => {

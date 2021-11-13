@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { UseContext } from "../../hooks/storage";
+import { useContext } from "../../hooks/storage";
 
 interface IProps {
   loggedIn: boolean;
 }
 
 export const UserInfo = (props: IProps) => {
-  const { user } = UseContext();
+  const { user } = useContext();
   const [userInfo, setUserInfo] = useState({ login: null });
 
   useEffect(() => {

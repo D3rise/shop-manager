@@ -1,4 +1,4 @@
-import { useContext, useState, createContext } from "react";
+import { useContext as useReactContext, useState, createContext } from "react";
 import Web3 from "web3";
 
 interface IContext {
@@ -10,7 +10,7 @@ interface IContext {
 
 export const Context = createContext<IContext>({});
 
-export const UseContext = () => useContext(Context);
+export const useContext = () => useReactContext(Context);
 
 export const useLocalStorage = (key: string, initialValue: any) => {
   const [storedValue, setStoredValue] = useState(() => {
