@@ -14,9 +14,9 @@ export const useLocalStorage = (key, initialValue) => {
   const setStoredValue = (newValue) => {
     try {
       const valueToStore =
-        typeof newValue === Function ? newValue(value) : value;
+        typeof newValue === Function ? newValue(value) : newValue;
       setValue(valueToStore);
-      return valueToStore;
+      localStorage.setItem(key, JSON.stringify(valueToStore));
     } catch (e) {
       console.error(e);
     }

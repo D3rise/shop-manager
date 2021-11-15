@@ -1,53 +1,68 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { AddReviewForm } from "../../component/addReviewForm";
+import { AddReviewForm } from "../../component/forms/addReview";
 import { useContext } from "../../hook/context";
+import "./index.scss";
 
 export const Shop = () => {
   const [reviews, setReviews] = useState([]);
   const { city } = useParams();
-  const { contract, user, setLoading } = useContext();
+  const { contract, user } = useContext();
 
   const getAnswer = async (answer) => {
+    const actualAnswer = await contract.methods.getReview(answer).call();
+
     return {
-      sender: await contract.methods.getUser(answer.sender).call(),
-      review: await contract.methods.getReview(answer).call(),
+      id: answer,
+      sender: await contract.methods.getUser(actualAnswer.sender).call(),
+      review: actualAnswer,
     };
   };
 
   const setActualReviews = async (review) => {
+    console.log(review);
     const actualReview = await contract.methods.getReview(review).call();
-    setReviews([
-      ...reviews,
-      {
-        id: review,
-        sender: await contract.methods.getUser(actualReview.sender).call(),
-        review: actualReview,
-        answers: actualReview.answers.map(getAnswer),
-      },
-    ]);
+    const sender = await contract.methods.getUser(actualReview.sender).call();
+    const answers = await Promise.all(actualReview.answers.map(getAnswer));
+
+    console.log(actualReview);
+    return {
+      id: review,
+      sender,
+      review: actualReview,
+      answers,
+      showAnswerForm: false,
+    };
   };
 
   const getReviews = async () => {
-    setLoading(true);
     const actualReviews = await contract.methods.getShopReviews(city).call();
-    actualReviews.map(setActualReviews);
-    setLoading(false);
+    setReviews(await Promise.all(actualReviews.map(setActualReviews)));
   };
 
-  const rateReview = async (review, positive) => {
-    setLoading(true);
-    if (
-      review.review.likes.includes(user.address) ||
-      review.review.dislikes.includes(user.address)
-    ) {
-      return alert("You already rated this review!");
+  const onRateReview = async (review, positive) => {
+    try {
+      if (
+        review.review.likes.includes(user.address) ||
+        review.review.dislikes.includes(user.address)
+      ) {
+        return alert("You already rated this review!");
+      }
+      await contract.methods
+        .rateReview(review.id, positive)
+        .send({ from: user.address });
+    } catch (e) {
+      return alert(e.message.split(" ").slice(5).join(" "));
     }
-    await contract.methods
-      .rateReview(review.id, positive)
-      .send({ from: user.address });
+
     alert(`You ${positive ? "liked" : "disliked"} this comment!`);
-    setLoading(false);
+    getReviews();
+  };
+
+  const onShowAnswerForm = (index) => {
+    const newReviews = [...reviews];
+    newReviews[index].showAnswerForm = true;
+    setReviews(newReviews);
   };
 
   useEffect(() => {
@@ -65,43 +80,85 @@ export const Shop = () => {
         <>
           <h3>Reviews: </h3>
           <ol>
-            {reviews.map((review) => (
-              <li>
-                <b>{review.sender.fullName}</b>
-                <i> wrote:</i>
-                <br />
-                <blockquote>{review.review.content}</blockquote>
-                <i>Rate: {review.review.rate}/10</i>
-                {review.answers.length === 0 ? null : (
-                  <h3>
-                    Answers:{" "}
-                    {review.answers.map((answer) => (
+            {reviews.map((review, i) =>
+              review.review.answer === "0" ? (
+                <>
+                  <li key={review.id}>
+                    <b>{review.sender.fullName}</b>
+                    <i> wrote:</i>
+                    <br />
+                    <blockquote>{review.review.content}</blockquote>
+                    <i>Rate: {review.review.rate}/10</i>
+                    {review.answers.length === 0 ? null : (
                       <>
-                        <b>{answer.fullName}</b>;<i>wrote: </i>
-                        <br />
-                        <blockquote>{answer.answer.content}</blockquote>
+                        <h5>Answers: </h5>
+                        <ul>
+                          {review.answers.map((answer) => (
+                            <li>
+                              <b>{answer.sender.fullName}</b> <i>wrote: </i>
+                              <br />
+                              <blockquote>{answer.review.content}</blockquote>
+                              <b>
+                                Review rating:{" "}
+                                {answer.review.likes.length -
+                                  answer.review.dislikes.length}
+                              </b>
+                              <br />
+                              {user.address && (
+                                <>
+                                  <button
+                                    onClick={() => onRateReview(answer, true)}
+                                  >
+                                    Like
+                                  </button>
+                                  <button
+                                    onClick={() => onRateReview(answer, false)}
+                                  >
+                                    Dislike
+                                  </button>
+                                </>
+                              )}
+                            </li>
+                          ))}
+                        </ul>
                       </>
-                    ))}
-                  </h3>
-                )}
-                <br />
-                <b>
-                  Review rating:{" "}
-                  {review.review.likes.length - review.review.dislikes.length}
-                </b>
-                <br />
-                {user.address && (
-                  <>
-                    <button onClick={() => rateReview(review, true)}>
-                      Like
-                    </button>
-                    <button onClick={() => rateReview(review, false)}>
-                      Dislike
-                    </button>
-                  </>
-                )}
-              </li>
-            ))}
+                    )}
+                    <br />
+                    <b>
+                      Review rating:{" "}
+                      {review.review.likes.length -
+                        review.review.dislikes.length}
+                    </b>
+                    <br />
+                    {user.address && (
+                      <>
+                        <button onClick={() => onRateReview(review, true)}>
+                          Like
+                        </button>
+                        <button onClick={() => onRateReview(review, false)}>
+                          Dislike
+                        </button>
+                      </>
+                    )}
+                    <br />
+                    {user.address ? (
+                      review.showAnswerForm ? (
+                        <AddReviewForm
+                          isAnswer={true}
+                          parent={review.id}
+                          shop={city}
+                          onSubmit={getReviews}
+                        />
+                      ) : (
+                        <button onClick={() => onShowAnswerForm(i)}>
+                          Answer
+                        </button>
+                      )
+                    ) : null}
+                  </li>
+                </>
+              ) : null
+            )}
           </ol>
         </>
       )}

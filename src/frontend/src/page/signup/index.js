@@ -5,12 +5,14 @@ import { useNavigate } from "react-router";
 
 export const Signup = () => {
   const navigate = useNavigate();
-  const { user, setUser, contract, web3, setLoading } = useContext();
+  const { user, setUser, contract, web3 } = useContext();
+
+  const [loading, setLoading] = useState(false);
   const [credentials, setCredentials] = useState({
-    username: null,
-    fullName: null,
-    password: null,
-    secret: null,
+    username: "",
+    fullName: "",
+    password: "",
+    secret: "",
   });
 
   useEffect(() => {
@@ -23,9 +25,15 @@ export const Signup = () => {
   };
 
   const handleSubmit = async (event) => {
+    setLoading(true);
     event.preventDefault();
     const { username, fullName, password, secret } = credentials;
-    setLoading(true);
+
+    console.log(credentials);
+    if (fullName.split(" ").length < 3) {
+      return alert("Full Name should contain three words!");
+    }
+
     try {
       const address = await addUser(
         web3,
@@ -36,14 +44,16 @@ export const Signup = () => {
         fullName
       );
       setUser({ username, address });
-      setLoading(false);
+      navigate("/");
     } catch (e) {
+      setLoading(false);
       alert(e.message);
     }
   };
 
   return (
     <div className="signup_form">
+      {loading && <h4>Loading....</h4>}
       <form onSubmit={handleSubmit}>
         <label>
           Full Name:
@@ -67,6 +77,7 @@ export const Signup = () => {
           Password:
           <input
             name="password"
+            type="password"
             value={credentials.password}
             onChange={handleChange}
           />
@@ -76,6 +87,7 @@ export const Signup = () => {
           Secret:
           <input
             name="secret"
+            type="password"
             value={credentials.secret}
             onChange={handleChange}
           />

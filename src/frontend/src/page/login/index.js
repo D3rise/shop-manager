@@ -23,6 +23,7 @@ export const Login = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
     const { username, password, secret } = credentials;
     const passwordHash = web3.utils.keccak256(
       web3.eth.abi.encodeParameter("string", password)
@@ -44,6 +45,7 @@ export const Login = () => {
         setUser({ username, address });
       }
     } catch (e) {
+      console.log(e);
       alert("Wrong username, password or secret!");
       setCredentials({ username, password: "", secret: "" });
     }

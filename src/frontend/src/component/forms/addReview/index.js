@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { useContext } from "../../hook/context";
+import { useContext } from "../../../hook/context";
 
 export const AddReviewForm = (props) => {
   const { contract, user } = useContext();
-  const { isAnswer, parent, shop } = props;
+  const { parent, shop } = props;
   const [values, setValues] = useState({
     content: "",
     rate: 0,
@@ -21,15 +21,16 @@ export const AddReviewForm = (props) => {
     event.preventDefault();
     const { content, rate } = values;
     const { address } = user;
+    console.log(address);
 
     await contract.methods
-      .newReview(shop, content, rate, isAnswer ? parent : 0)
+      .newReview(shop, content, parent ? 1 : rate, parent ? parent : 0)
       .send({ from: address });
     props.onSubmit(event, values);
   };
 
   return (
-    <div className={`add_${isAnswer ? "answer" : "review"}_form`}>
+    <div className={`add_${parent ? "answer" : "review"}_form`}>
       <form onSubmit={handleSubmit}>
         <label>
           Content:
@@ -41,7 +42,7 @@ export const AddReviewForm = (props) => {
           />
         </label>
         <br />
-        {isAnswer ? null : (
+        {parent ? null : (
           <>
             <label>
               Rating:

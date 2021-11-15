@@ -670,6 +670,10 @@ contract ShopManager {
         uint32 reviewId = uint32(reviewsArray.length);
         reviewsArray.push(reviewId);
 
+        if(answer != 0) {
+            reviews[answer].answers.push(reviewId);
+        }
+
         uint32[] memory emptyReviews;
         address[] memory emptyAddresses;
         reviews[reviewId] = Review(
