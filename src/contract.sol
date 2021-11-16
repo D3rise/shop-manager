@@ -391,15 +391,15 @@ contract ShopManager {
     // Функция входа в аккаунт
     function authenticateUser(
         string memory username,
-        bytes32 pwHash,
-        bytes32 secretHash
+        string memory password,
+        string memory secret
     ) public view returns (string memory loginAuthenticated) {
         User memory user = users[userLogins[username]];
 
         require(user.exists, "User does not exist");
         require(
-            pwHash == user.pwHash &&
-                secretHash == user.secretHash,
+            keccak256(abi.encodePacked(password)) == user.pwHash &&
+                keccak256(abi.encodePacked(secret)) == user.secretHash,
             "Wrong password or secret"
         );
 
@@ -411,8 +411,8 @@ contract ShopManager {
         address addr,
         string memory username,
         string memory fullName,
-        bytes32 pwHash,
-        bytes32 secretHash
+        string memory password,
+        string memory secret
     ) public {
         require(
             !users[addr].exists && !users[userLogins[username]].exists,
@@ -426,8 +426,8 @@ contract ShopManager {
         users[addr] = User(
             username,
             fullName,
-            pwHash,
-            secretHash,
+            keccak256(abi.encodePacked(password)),
+            keccak256(abi.encodePacked(secret)),
             Role.BUYER,
             "",
             emptyReviewsArray,
@@ -459,7 +459,11 @@ contract ShopManager {
         User memory user = users[addr];
         return (user.exists, user.login, user.fullName, user.role, user.shop);
     }
-
+    
+    function getUserLogins() public view returns (string[] memory usernames) {
+        return userLoginsArray;
+    }
+    
     // Функция запроса на смену роли
     function newElevateRequest(Role requiredRole, string memory requiredShop)
         public
@@ -478,6 +482,14 @@ contract ShopManager {
             true
         );
         elevReqsArray.push(msg.sender);
+    }
+    
+    function getElevateRequests() public view onlyAdmin returns(address[] memory requesters) {
+        return elevReqsArray;
+    }
+
+    function getElevateRequest(address sender) public view onlyAdmin returns(bool exists, Role requiredRole, string memory requiredShop) {
+        return (elevReqs[sender].exists, elevReqs[sender].role, elevReqs[sender].shop);
     }
 
     // Функция отмены запроса на смену роли

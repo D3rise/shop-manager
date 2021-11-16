@@ -1,9 +1,14 @@
 import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router";
-import { SendElevateRequestForm } from "../../component/forms/requests";
+import { SendElevateRequestForm } from "../../component/forms/sendElevateRequest/elevate";
 import { AddShopForm, RemoveShopForm } from "../../component/forms/shop";
 import { useContext } from "../../hook/context";
 import { capitalizeString } from "../../utils";
+import { Shop } from "../../component/shop";
+import { MoneyRequestsList } from "../../component/lists/moneyRequests";
+import { ChangeUserRoleForm } from "../../component/forms/changeUserRole";
+import { ElevateRequestsList } from "../../component/lists/elevateRequests";
+import { SendMoneyRequestForm } from "../../component/forms/sendMoneyRequest";
 
 export const Dashboard = () => {
   const { user, contract } = useContext();
@@ -12,11 +17,13 @@ export const Dashboard = () => {
   const [availableOperations, setAvailableOperations] = useState([]);
   const [role, setRole] = useState();
   const [shops, setShops] = useState([]);
+  const [hisShop, setHisShop] = useState("");
 
-  const getRole = useCallback(async () => {
-    const { role } = await contract.methods.getUser(user.address).call();
+  const getRoleAndShop = useCallback(async () => {
+    const { role, shop } = await contract.methods.getUser(user.address).call();
     setRole(role);
-  }, [contract, setRole, user.address]);
+    setHisShop(shop);
+  }, [contract, setRole, setHisShop, user.address]);
 
   const getShops = useCallback(async () => {
     const actualShops = await contract.methods.getShops().call();
@@ -35,7 +42,7 @@ export const Dashboard = () => {
       case "2":
         break;
       case "3":
-        operations = ["viewHisShop", "operateHisMoneyRequest"];
+        operations = ["viewHisShop", "sendMoneyRequest"];
         break;
       case "4":
         operations = ["operateMoneyRequests"];
@@ -57,9 +64,9 @@ export const Dashboard = () => {
 
   useEffect(() => {
     if (!user.address) return navigate("/login");
-    getRole().then(() => getAvailableOperations(role));
+    getRoleAndShop().then(() => getAvailableOperations(role));
     getShops();
-  }, [getRole, getShops, navigate, role, user.address]);
+  }, [getRoleAndShop, getShops, navigate, role, user.address]);
 
   const handleRemoveShop = (removed, city) => {
     if (removed)
@@ -79,38 +86,58 @@ export const Dashboard = () => {
       <ol>
         {availableOperations.includes("addShop") ? (
           <li key="add_shop">
+            <h3>Add shop:</h3>
             <AddShopForm />
           </li>
         ) : null}
 
         {availableOperations.includes("removeShop") ? (
           <li key="remove_shop">
+            <h3>Remove shop:</h3>
             <RemoveShopForm onRemove={handleRemoveShop} />
           </li>
         ) : null}
 
         {availableOperations.includes("changeRoles") ? (
-          <li key="change_roles">changeRoles</li>
+          <li key="change_roles">
+            <h3>Change user role:</h3>
+            <ChangeUserRoleForm />
+          </li>
         ) : null}
 
         {availableOperations.includes("viewElevateRequests") ? (
-          <li key="view_elevate_requests">viewElevateRequests</li>
+          <li key="view_elevate_requests">
+            <h3>Current elevate requests:</h3>
+            <ElevateRequestsList />
+          </li>
         ) : null}
 
         {availableOperations.includes("operateMoneyRequests") ? (
-          <li key="operate_money_requests">operateMoneyRequests</li>
+          <li key="operate_money_requests">
+            <h3>Current money requests:</h3>
+            <MoneyRequestsList />
+          </li>
         ) : null}
 
-        {availableOperations.includes("operateHisMoneyRequest") ? (
-          <li key="operate_his_money_request">operateHisMoneyRequest</li>
+        {availableOperations.includes("sendMoneyRequest") ? (
+          <li key="send_money_request">
+            <h3>Send money request to bank:</h3>
+            <SendMoneyRequestForm />
+          </li>
         ) : null}
 
         {availableOperations.includes("viewHisShop") ? (
-          <li key="view_his_shop">viewHisShop</li>
+          <li key="view_his_shop">
+            <h3>Your shop:</h3>
+            <ul>
+              <Shop city={hisShop} />
+            </ul>
+          </li>
         ) : null}
 
         {availableOperations.includes("sendElevateRequests") ? (
           <li key="send_elevate_requests">
+            <h3>Send elevate request:</h3>
             <SendElevateRequestForm
               availableRoles={[role === "0" ? "CASHIER" : "BUYER"]}
               onSend={handleElevateRequestSend}

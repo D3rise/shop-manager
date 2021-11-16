@@ -25,22 +25,18 @@ export const Login = () => {
     event.preventDefault();
 
     const { username, password, secret } = credentials;
-    const passwordHash = web3.utils.keccak256(
-      web3.eth.abi.encodeParameter("string", password)
-    );
-    const secretHash = web3.utils.keccak256(
-      web3.eth.abi.encodeParameter("string", secret)
-    );
-
-    console.log(passwordHash);
 
     try {
+      console.log(username);
       const address = await contract.methods.getUserAddress(username).call();
-      const authenticated = await web3.eth.personal.unlockAccount(address);
+      const authenticated = await web3.eth.personal.unlockAccount(
+        address,
+        password
+      );
 
       if (authenticated) {
         await contract.methods
-          .authenticateUser(username, passwordHash, secretHash)
+          .authenticateUser(username, password, secret)
           .call();
         setUser({ username, address });
       }

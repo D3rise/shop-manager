@@ -6,19 +6,10 @@ export const addUser = async (
   secret,
   fullName
 ) => {
-  const userExists = (
-    await contract.methods
-      .getUser(await contract.methods.getUserAddress(username).call())
-      .call()
-  )[0];
-  if (userExists) throw new Error("User exists!");
-
-  const passwordHash = web3.utils.keccak256(
-    web3.eth.abi.encodeParameter("string", password)
-  );
-  const secretHash = web3.utils.keccak256(
-    web3.eth.abi.encodeParameter("string", secret)
-  );
+  const { exists } = await contract.methods
+    .getUser(await contract.methods.getUserAddress(username).call())
+    .call();
+  if (exists) throw new Error("User exists!");
 
   const address = await web3.eth.personal.newAccount(password);
   await web3.eth.personal.unlockAccount(address, password, 0);
@@ -26,7 +17,7 @@ export const addUser = async (
   await transferFromReserve(web3, address, web3.utils.toWei("2", "ether"));
 
   await contract.methods
-    .newUser(address, username, fullName, passwordHash, secretHash)
+    .newUser(address, username, fullName, password, secret)
     .send({ from: address });
 
   return address;

@@ -1,5 +1,10 @@
 export const Abi = [
   {
+    inputs: [],
+    stateMutability: "nonpayable",
+    type: "constructor",
+  },
+  {
     inputs: [
       {
         internalType: "address",
@@ -23,6 +28,35 @@ export const Abi = [
     name: "approveMoneyRequest",
     outputs: [],
     stateMutability: "payable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "string",
+        name: "username",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "password",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "secret",
+        type: "string",
+      },
+    ],
+    name: "authenticateUser",
+    outputs: [
+      {
+        internalType: "string",
+        name: "loginAuthenticated",
+        type: "string",
+      },
+    ],
+    stateMutability: "view",
     type: "function",
   },
   {
@@ -78,6 +112,19 @@ export const Abi = [
   {
     inputs: [
       {
+        internalType: "address",
+        name: "sender",
+        type: "address",
+      },
+    ],
+    name: "getElevateRequest",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "exists",
+        type: "bool",
+      },
+      {
         internalType: "enum ShopManager.Role",
         name: "requiredRole",
         type: "uint8",
@@ -88,154 +135,17 @@ export const Abi = [
         type: "string",
       },
     ],
-    name: "newElevateRequest",
-    outputs: [],
-    stateMutability: "nonpayable",
+    stateMutability: "view",
     type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "requiredSum",
-        type: "uint256",
-      },
-    ],
-    name: "newMoneyRequest",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "string",
-        name: "shop",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "content",
-        type: "string",
-      },
-      {
-        internalType: "uint8",
-        name: "rate",
-        type: "uint8",
-      },
-      {
-        internalType: "uint32",
-        name: "answer",
-        type: "uint32",
-      },
-    ],
-    name: "newReview",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "string",
-        name: "city",
-        type: "string",
-      },
-      {
-        internalType: "address",
-        name: "owner",
-        type: "address",
-      },
-    ],
-    name: "newShop",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address payable",
-        name: "addr",
-        type: "address",
-      },
-      {
-        internalType: "string",
-        name: "username",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "fullName",
-        type: "string",
-      },
-      {
-        internalType: "bytes32",
-        name: "pwHash",
-        type: "bytes32",
-      },
-      {
-        internalType: "bytes32",
-        name: "secretHash",
-        type: "bytes32",
-      },
-    ],
-    name: "newUser",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint32",
-        name: "review",
-        type: "uint32",
-      },
-      {
-        internalType: "bool",
-        name: "positive",
-        type: "bool",
-      },
-    ],
-    name: "rateReview",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    stateMutability: "payable",
-    type: "receive",
   },
   {
     inputs: [],
-    stateMutability: "payable",
-    type: "constructor",
-  },
-  {
-    inputs: [
-      {
-        internalType: "string",
-        name: "username",
-        type: "string",
-      },
-      {
-        internalType: "bytes32",
-        name: "pwHash",
-        type: "bytes32",
-      },
-      {
-        internalType: "bytes32",
-        name: "secretHash",
-        type: "bytes32",
-      },
-    ],
-    name: "authenticateUser",
+    name: "getElevateRequests",
     outputs: [
       {
-        internalType: "string",
-        name: "loginAuthenticated",
-        type: "string",
+        internalType: "address[]",
+        name: "requesters",
+        type: "address[]",
       },
     ],
     stateMutability: "view",
@@ -491,6 +401,19 @@ export const Abi = [
     type: "function",
   },
   {
+    inputs: [],
+    name: "getUserLogins",
+    outputs: [
+      {
+        internalType: "string[]",
+        name: "usernames",
+        type: "string[]",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
     inputs: [
       {
         internalType: "address",
@@ -512,6 +435,134 @@ export const Abi = [
       },
     ],
     stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "enum ShopManager.Role",
+        name: "requiredRole",
+        type: "uint8",
+      },
+      {
+        internalType: "string",
+        name: "requiredShop",
+        type: "string",
+      },
+    ],
+    name: "newElevateRequest",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "requiredSum",
+        type: "uint256",
+      },
+    ],
+    name: "newMoneyRequest",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "string",
+        name: "shop",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "content",
+        type: "string",
+      },
+      {
+        internalType: "uint8",
+        name: "rate",
+        type: "uint8",
+      },
+      {
+        internalType: "uint32",
+        name: "answer",
+        type: "uint32",
+      },
+    ],
+    name: "newReview",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "string",
+        name: "city",
+        type: "string",
+      },
+      {
+        internalType: "address",
+        name: "owner",
+        type: "address",
+      },
+    ],
+    name: "newShop",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "addr",
+        type: "address",
+      },
+      {
+        internalType: "string",
+        name: "username",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "fullName",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "password",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "secret",
+        type: "string",
+      },
+    ],
+    name: "newUser",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint32",
+        name: "review",
+        type: "uint32",
+      },
+      {
+        internalType: "bool",
+        name: "positive",
+        type: "bool",
+      },
+    ],
+    name: "rateReview",
+    outputs: [],
+    stateMutability: "nonpayable",
     type: "function",
   },
 ];
