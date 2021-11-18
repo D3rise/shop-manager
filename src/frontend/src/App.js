@@ -28,8 +28,6 @@ export const App = () => {
     balance: "",
   });
 
-  console.log(user);
-
   return (
     <Context.Provider value={{ web3, contract, user, setUser }}>
       <div className="App">

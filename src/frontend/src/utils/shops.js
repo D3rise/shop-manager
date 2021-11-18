@@ -1,22 +1,22 @@
 import { capitalizeString } from ".";
 import { addUser } from "./users";
 
-export const addShop = async (web3, contract, city, password, secret) => {
+export const addShop = async (web3, contract, city, password, secret, from) => {
   const address = await addUser(
     web3,
     contract,
     city,
     web3.utils.sha3(password),
     web3.utils.sha3(secret),
-    `${city.capitalize()} Shop`
+    `${capitalizeString(city)} Shop`
   );
   await contract.methods
     .newShop(capitalizeString(city), address)
-    .send({ from: address });
+    .send({ from });
 
-  return await contract.methods.getShop(capitalizeString(city)).call();
+  return contract.methods.getShopByCity(capitalizeString(city)).call();
 };
 
 export const removeShop = async (contract, city, from) => {
-  contract.methods.deleteShop(capitalizeString(city)).send({ from });
+  contract.methods.deleteShop(city).send({ from });
 };

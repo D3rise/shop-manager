@@ -12,7 +12,7 @@ export const ElevateRequestsList = () => {
   const handleRequestOperation = async (requester, accept) => {};
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const getRequests = useCallback(async () => {
+  const getRequests = async () => {
     const actualRequests = await contract.methods
       .getElevateRequests()
       .call({ from });
@@ -24,13 +24,14 @@ export const ElevateRequestsList = () => {
 
       const sender = await contract.methods.getUser(requester).call();
       const role = Roles[request.requiredRole];
-      const { shop } = request;
+      const { requiredShop: shop } = request;
 
       setRequests(() => [...requests, { from: requester, sender, role, shop }]);
     });
-  });
+  };
 
-  useEffect(() => getRequests(), [getRequests]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(getRequests, []);
 
   return (
     <>

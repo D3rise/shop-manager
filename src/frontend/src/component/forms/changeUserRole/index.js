@@ -16,17 +16,12 @@ export const ChangeUserRoleForm = () => {
   const getUsers = async () => {
     const actualUsers = await contract.methods.getUserLogins().call();
 
-    const validUsers = actualUsers.map(async (username) => {
+    const fullUsers = actualUsers.map(async (username) => {
       const address = await contract.methods.getUserAddress(username).call();
-      const actualUser = await contract.methods.getUser(address).call();
-      setUsers([...users, actualUser]);
+      return contract.methods.getUser(address).call();
     });
 
-    const firstValidUser = await validUsers[0];
-    const firstValidUsername = firstValidUser.username;
-    const firstValidRole = firstValidUser.role === 0 ? 1 : 0;
-
-    setState({ ...state, username: firstValidUsername, role: firstValidRole });
+    setUsers(await Promise.all(fullUsers));
   };
 
   const getShops = async () => {
@@ -38,6 +33,7 @@ export const ChangeUserRoleForm = () => {
   const handleChange = (event) => {
     const { name, value } = event.currentTarget;
     setState({ ...state, [name]: value });
+    console.log(state);
   };
 
   const handleSubmit = async (event) => {
@@ -46,14 +42,21 @@ export const ChangeUserRoleForm = () => {
     try {
       const address = await contract.methods.getUserAddress(username).call();
 
+      console.log(
+        address,
+        getKeyByValue(Roles, role),
+        role === "CASHIER" ? shop : ""
+      );
+
       await contract.methods
         .changeRole(
           address,
-          role,
-          role === getKeyByValue(Roles, "CASHIER") ? shop : "",
+          getKeyByValue(Roles, role),
+          role === "CASHIER" ? shop : "",
           true
         )
         .send({ from });
+      alert(`Successfully changed role of ${username} to ${role}!`);
     } catch (e) {
       console.log(e);
       alert(e.message);
@@ -63,6 +66,7 @@ export const ChangeUserRoleForm = () => {
   useEffect(() => {
     getShops();
     getUsers();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -76,11 +80,16 @@ export const ChangeUserRoleForm = () => {
             onChange={handleChange}
             value={state.username}
           >
-            {users.map((user) => (
-              <>
-                <option value={user.username}>{user.username}</option>
-              </>
-            ))}
+            {users.map(
+              (user) =>
+                user.role !== getKeyByValue(Roles, "SHOP") &&
+                user.role !== getKeyByValue(Roles, "BANK") &&
+                user.role !== getKeyByValue(Roles, "PROVIDER") && (
+                  <>
+                    <option value={user.username}>{user.username}</option>
+                  </>
+                )
+            )}
           </select>
         </label>
         <br />
@@ -90,8 +99,9 @@ export const ChangeUserRoleForm = () => {
           <select name="role" onChange={handleChange} value={state.role}>
             {Roles.map(
               (role) =>
-                role !== getKeyByValue(Roles, "BANK") &&
-                role !== getKeyByValue(Roles, "PROVIDER") && (
+                role !== "BANK" &&
+                role !== "PROVIDER" &&
+                role !== "SHOP" && (
                   <>
                     <option value={role}>{role}</option>
                   </>
@@ -99,7 +109,7 @@ export const ChangeUserRoleForm = () => {
             )}
           </select>
         </label>
-        {state.role === getKeyByValue(Roles, "CASHIER") && (
+        {state.role === "CASHIER" && (
           <>
             <label>
               Shop:

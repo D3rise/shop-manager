@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { useContext } from "../../../hook/context";
 import { capitalizeString } from "../../../utils";
@@ -6,7 +6,7 @@ import { addShop, removeShop } from "../../../utils/shops";
 
 export const AddShopForm = () => {
   const navigate = useNavigate();
-  const { contract, web3 } = useContext();
+  const { contract, web3, user } = useContext();
 
   const [shopData, setShopData] = useState({
     city: "",
@@ -23,7 +23,7 @@ export const AddShopForm = () => {
     event.preventDefault();
     const { city, password, secret } = shopData;
     try {
-      await addShop(web3, contract, city, password, secret);
+      await addShop(web3, contract, city, password, secret, user.address);
       navigate(`/shop/${capitalizeString(city)}`);
     } catch (e) {
       console.error(e);
@@ -68,6 +68,17 @@ export const AddShopForm = () => {
 export const RemoveShopForm = (props) => {
   const { user, contract } = useContext();
   const [city, setCity] = useState("");
+  const [shops, setShops] = useState([]);
+
+  const getShops = async () => {
+    const actualShops = await contract.methods.getShops().call();
+    setShops(actualShops);
+  };
+
+  useEffect(() => {
+    getShops();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleChange = (event) => {
     const newCity = event.currentTarget.value;
@@ -78,7 +89,7 @@ export const RemoveShopForm = (props) => {
     event.preventDefault();
     try {
       await removeShop(contract, city, user.address);
-      props.onRemove(true);
+      props.onRemove(true, city);
     } catch (e) {
       console.error(e);
       alert(e.message);
@@ -90,7 +101,13 @@ export const RemoveShopForm = (props) => {
       <form onSubmit={handleSubmit}>
         <label>
           City:
-          <input value={city} onChange={handleChange} />
+          <select value={city} onChange={handleChange}>
+            {shops.map((shop) => (
+              <>
+                <option value={shop}>{shop}</option>
+              </>
+            ))}
+          </select>
         </label>
         <br />
         <button type="submit">Remove</button>

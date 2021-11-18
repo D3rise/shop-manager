@@ -200,7 +200,14 @@ contract ShopManager {
         )
     {
         User memory user = users[addr];
-        return (user.exists, user.login, user.fullName, user.role, user.maxRole, user.shop);
+        return (
+            user.exists,
+            user.login,
+            user.fullName,
+            user.role,
+            user.maxRole,
+            user.shop
+        );
     }
 
     function getUserLogins() public view returns (string[] memory usernames) {
@@ -731,7 +738,7 @@ contract ShopManager {
             true
         );
         userLogins[
-            "saint-peterspurg"
+            "saint-petersburg"
         ] = 0x1567f49dd576775d225D9C987880deE8e2e0e3DA;
         userLoginsArray.push("saint-petersburg");
         shops["Saint Petersburg"] = Shop(
@@ -796,7 +803,7 @@ contract ShopManager {
             true
         );
         userLogins["habarovsk"] = 0x602E85A431e7cFB8489aFE0FF40EDa6C2B968afD;
-        userLoginsArray.push("habrovsk");
+        userLoginsArray.push("habarovsk");
         shops["Habarovsk"] = Shop(
             "Habarovsk",
             0x602E85A431e7cFB8489aFE0FF40EDa6C2B968afD,

@@ -35,12 +35,6 @@ export const Login = () => {
       );
 
       if (authenticated) {
-        console.log(
-          username,
-          web3.utils.sha3(password),
-          web3.utils.sha3(secret)
-        );
-
         await contract.methods
           .authenticateUser(
             username,

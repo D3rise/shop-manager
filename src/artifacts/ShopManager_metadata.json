@@ -44,22 +44,22 @@
 						"type": "string"
 					},
 					{
-						"internalType": "string",
-						"name": "password",
-						"type": "string"
+						"internalType": "bytes32",
+						"name": "pwHash",
+						"type": "bytes32"
 					},
 					{
-						"internalType": "string",
-						"name": "secret",
-						"type": "string"
+						"internalType": "bytes32",
+						"name": "secretHash",
+						"type": "bytes32"
 					}
 				],
 				"name": "authenticateUser",
 				"outputs": [
 					{
-						"internalType": "string",
-						"name": "loginAuthenticated",
-						"type": "string"
+						"internalType": "bool",
+						"name": "success",
+						"type": "bool"
 					}
 				],
 				"stateMutability": "view",
@@ -95,19 +95,11 @@
 						"internalType": "string",
 						"name": "requiredShop",
 						"type": "string"
-					}
-				],
-				"name": "changeMaxRole",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
+					},
 					{
-						"internalType": "enum ShopManager.Role",
-						"name": "role",
-						"type": "uint8"
+						"internalType": "bool",
+						"name": "maxRole",
+						"type": "bool"
 					}
 				],
 				"name": "changeRole",
@@ -392,6 +384,11 @@
 						"type": "uint8"
 					},
 					{
+						"internalType": "enum ShopManager.Role",
+						"name": "maxRole",
+						"type": "uint8"
+					},
+					{
 						"internalType": "string",
 						"name": "shop",
 						"type": "string"
@@ -551,14 +548,14 @@
 						"type": "string"
 					},
 					{
-						"internalType": "string",
-						"name": "password",
-						"type": "string"
+						"internalType": "bytes32",
+						"name": "pwHash",
+						"type": "bytes32"
 					},
 					{
-						"internalType": "string",
-						"name": "secret",
-						"type": "string"
+						"internalType": "bytes32",
+						"name": "secretHash",
+						"type": "bytes32"
 					}
 				],
 				"name": "newUser",
@@ -598,7 +595,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contract.sol": "ShopManager"
+			"src/contract.sol": "ShopManager"
 		},
 		"evmVersion": "london",
 		"libraries": {},
@@ -612,12 +609,12 @@
 		"remappings": []
 	},
 	"sources": {
-		"contract.sol": {
-			"keccak256": "0x8cb884caee7221079b5eaf24703086ce2e63537e6686b79fdd76bb2ffbaf7748",
+		"src/contract.sol": {
+			"keccak256": "0x121ed8c2fbddf1ee636f9da29772e7d18d458180cf3d28e7a5a260fa1165c14a",
 			"license": "UNLICENSED",
 			"urls": [
-				"bzz-raw://00402d2eed0076f79124af39c3343f6b239158224e08a749ada326ced8c9a71a",
-				"dweb:/ipfs/QmUuoPdjwf7HAxtjcesnhpuypSKPMZcJCciXMkPTAYWmmk"
+				"bzz-raw://0c0b1e86aa42bb0b87bcd7eb80fcd07d564a196fac14b9bd4b82a3a0df501b46",
+				"dweb:/ipfs/QmYzsfFswhKXe1pv9YWmFU81FpdnedHszoZbQTNrSPY7Kw"
 			]
 		}
 	},
