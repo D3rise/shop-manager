@@ -22,8 +22,6 @@ export const SendElevateRequestForm = (props) => {
     const { role, shop } = requestDetails;
 
     const roleToRequest = getKeyByValue(Roles, role);
-    console.log(shop);
-    console.log(typeof roleToRequest, roleToRequest);
 
     try {
       await contract.methods

@@ -2,10 +2,8 @@ import { useEffect, useState } from "react";
 import { useContext } from "../../../hook/context";
 
 export const MoneyRequestsList = () => {
-  const {
-    contract,
-    user: { address: from },
-  } = useContext();
+  const { contract, user, setUser, web3 } = useContext();
+  const { address: from } = user;
   const [requests, setRequests] = useState([]);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -26,7 +24,6 @@ export const MoneyRequestsList = () => {
       console.log(e);
       alert(e);
     }
-    console.log(requests);
   };
 
   const handleRequestOperation = async (request, accept) => {
@@ -34,12 +31,18 @@ export const MoneyRequestsList = () => {
       await contract.methods
         .approveMoneyRequest(request.requester, accept)
         .send({ from, value: request.request.count });
-      await getRequests();
+      setUser({
+        ...user,
+        balance: web3.utils
+          .toBN(user.balance)
+          .sub(web3.utils.toBN(request.request.count)),
+      });
       alert(
         `Successfully ${accept ? "accepted" : "denied"} request of ${
           request.requester
         }, transfered ${request.request.count} ether`
       );
+      await getRequests();
     } catch (e) {
       console.log(e);
       alert(e.message);
