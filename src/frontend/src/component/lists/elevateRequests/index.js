@@ -1,4 +1,4 @@
-import { useCallback, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useContext } from "../../../hook/context";
 import { Roles } from "../../../utils/roles";
 
@@ -9,7 +9,23 @@ export const ElevateRequestsList = () => {
   } = useContext();
   const [requests, setRequests] = useState([]);
 
-  const handleRequestOperation = async (requester, accept) => {};
+  const handleRequestOperation = async (requester, accept) => {
+    try {
+      await contract.methods
+        .approveElevationRequest(requester, accept)
+        .send({ from });
+
+      alert(
+        `Successfully ${
+          accept ? "accepted" : "denied"
+        } request of user with address ${requester}!`
+      );
+      getRequests();
+    } catch (e) {
+      console.log(e);
+      alert(e.message);
+    }
+  };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const getRequests = async () => {
@@ -26,7 +42,7 @@ export const ElevateRequestsList = () => {
       const role = Roles[request.requiredRole];
       const { requiredShop: shop } = request;
 
-      setRequests(() => [...requests, { from: requester, sender, role, shop }]);
+      setRequests([...requests, { from: requester, sender, role, shop }]);
     });
   };
 
@@ -37,27 +53,34 @@ export const ElevateRequestsList = () => {
     <>
       <div className="elevate_requests_list">
         <ol>
-          {requests.map((request, i) => (
-            <>
-              <li key={i}>
-                <h4>Request from: {request.sender.username}</h4>
-                <h5>
-                  Role: <b>{request.role}</b>
-                </h5>
-                {request.role === "CASHIER" && <h5>Shop: {request.shop}</h5>}
-                <button
-                  onClick={() => handleRequestOperation(request.from, true)}
-                >
-                  Accept
-                </button>
-                <button
-                  onClick={() => handleRequestOperation(request.from, false)}
-                >
-                  Deny
-                </button>
-              </li>
-            </>
-          ))}
+          {requests.map(
+            (request, i) =>
+              request.sender.exists && (
+                <>
+                  <li key={i}>
+                    <h4>Request from: {request.sender.username}</h4>
+                    <h5>
+                      Role: <b>{request.role}</b>
+                    </h5>
+                    {request.role === "CASHIER" && (
+                      <h5>Shop: {request.shop}</h5>
+                    )}
+                    <button
+                      onClick={() => handleRequestOperation(request.from, true)}
+                    >
+                      Accept
+                    </button>
+                    <button
+                      onClick={() =>
+                        handleRequestOperation(request.from, false)
+                      }
+                    >
+                      Deny
+                    </button>
+                  </li>
+                </>
+              )
+          )}
         </ol>
       </div>
     </>

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useContext } from "../../../hook/context";
 
 export const MoneyRequestsList = () => {
@@ -6,12 +6,12 @@ export const MoneyRequestsList = () => {
     contract,
     user: { address: from },
   } = useContext();
-  const [requests, setRequests] = useState();
+  const [requests, setRequests] = useState([]);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const getRequests = useCallback(async () => {
+  const getRequests = async () => {
     try {
-      const { moneyRequesters } = await contract.methods
+      const moneyRequesters = await contract.methods
         .getMoneyRequests()
         .call({ from });
 
@@ -27,24 +27,53 @@ export const MoneyRequestsList = () => {
       alert(e);
     }
     console.log(requests);
-  });
+  };
 
-  useEffect(() => getRequests(), [getRequests]);
+  const handleRequestOperation = async (request, accept) => {
+    try {
+      await contract.methods
+        .approveMoneyRequest(request.requester, accept)
+        .send({ from, value: request.request.count });
+      await getRequests();
+      alert(
+        `Successfully ${accept ? "accepted" : "denied"} request of ${
+          request.requester
+        }, transfered ${request.request.count} ether`
+      );
+    } catch (e) {
+      console.log(e);
+      alert(e.message);
+    }
+  };
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => getRequests(), []);
 
   return (
     <div className="money_requests_list">
       <ol>
-        {requests.map((request, i) => (
-          <>
-            <li key={i}>
-              <h4>{request.requester}</h4>
-              <h5>
-                Wanted sum of money: <b>{request.request.count}</b>
-              </h5>
-            </li>
-            <br />
-          </>
-        ))}
+        {requests.map(
+          (request, i) =>
+            request.requester && (
+              <>
+                <li key={i}>
+                  <h4>{request.requester}</h4>
+                  <h5>
+                    Wanted sum of money: <b>{request.request.count}</b>
+                  </h5>
+                  <button onClick={() => handleRequestOperation(request, true)}>
+                    Accept
+                  </button>
+                  <button
+                    onClick={() => handleRequestOperation(request, false)}
+                  >
+                    Deny
+                  </button>
+                </li>
+                <br />
+              </>
+            )
+        )}
       </ol>
     </div>
   );

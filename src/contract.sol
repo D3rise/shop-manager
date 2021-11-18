@@ -266,17 +266,23 @@ contract ShopManager {
             elevReqs[msg.sender].exists,
             "You have not sent any elevate requests!"
         );
+        deleteElevationRequest(msg.sender);
+    }
 
-        elevReqs[msg.sender].exists = false;
+    function deleteElevationRequest(address requestAuthor) internal {
+        elevReqs[requestAuthor].exists = false;
         for (uint256 i = 0; i < elevReqsArray.length; i++) {
-            if (elevReqsArray[i] == msg.sender) {
+            if (elevReqsArray[i] == requestAuthor) {
                 delete elevReqsArray[i];
             }
         }
     }
 
     // Подтвердить запрос на смену роли
-    function approveElevationRequest(address requestAuthor) public onlyAdmin {
+    function approveElevationRequest(address requestAuthor, bool accept)
+        public
+        onlyAdmin
+    {
         ElevateRequest memory elevReq = elevReqs[requestAuthor];
 
         require(
@@ -284,7 +290,9 @@ contract ShopManager {
             "This user have not sent any elevation requests!"
         );
 
-        this.changeRole(requestAuthor, elevReq.role, elevReq.shop, true);
+        if (accept)
+            this.changeRole(requestAuthor, elevReq.role, elevReq.shop, true);
+        deleteElevationRequest(requestAuthor);
     }
 
     // Сменить роль пользователя
@@ -295,7 +303,10 @@ contract ShopManager {
         bool maxRole
     ) public {
         users[user].role = requiredRole;
-        if (maxRole && users[msg.sender].role == Role.ADMIN) {
+        if (
+            (maxRole && users[msg.sender].role == Role.ADMIN) ||
+            msg.sender == address(this)
+        ) {
             users[user].role = requiredRole;
             users[user].maxRole = requiredRole;
             users[user].shop = requiredShop;
@@ -329,6 +340,11 @@ contract ShopManager {
                 users[userAddress].role = Role.BUYER;
             }
         }
+
+        for (uint256 i = 0; i < shopCitites.length; i++) {
+            if (compareStrings(shopCitites[i], city)) delete shopCitites[i];
+        }
+        shops[city].exists = false;
 
         users[shop.owner].role = Role.BUYER;
         users[shop.owner].shop = "";
@@ -571,20 +587,25 @@ contract ShopManager {
     }
 
     // Удовлетворить запрос денег
-    function approveMoneyRequest(string memory shopCity)
+    function approveMoneyRequest(string memory shopCity, bool accept)
         public
         payable
         onlyBank
     {
         MoneyRequest memory moneyReq = moneyReqs[shopCity];
-        require(moneyReq.exists, "This shop didn't sent any money requests");
-        require(
-            msg.value == moneyReq.count,
-            "You need to send exact same amount of money that is written in money request"
-        );
+        if (accept) {
+            require(
+                moneyReq.exists,
+                "This shop didn't sent any money requests"
+            );
+            require(
+                msg.value == moneyReq.count,
+                "You need to send exact same amount of money that is written in money request"
+            );
 
-        address payable ownerAddress = payable(shops[shopCity].owner);
-        ownerAddress.transfer(moneyReq.count);
+            address payable ownerAddress = payable(shops[shopCity].owner);
+            ownerAddress.transfer(moneyReq.count);
+        }
 
         deleteMoneyRequest(shopCity);
     }

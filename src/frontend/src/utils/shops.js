@@ -18,5 +18,5 @@ export const addShop = async (web3, contract, city, password, secret, from) => {
 };
 
 export const removeShop = async (contract, city, from) => {
-  contract.methods.deleteShop(city).send({ from });
+  await contract.methods.deleteShop(city).send({ from });
 };

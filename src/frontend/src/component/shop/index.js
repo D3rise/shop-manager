@@ -7,11 +7,13 @@ export const Shop = (props) => {
 
   return (
     <Fragment>
-      <li>
-        <b>
-          <Link to={`shop/${city}`}>{`${city} Shop`}</Link>
-        </b>
-      </li>
+      {city && (
+        <li>
+          <b>
+            <Link to={`/shop/${city}`}>{`${city} Shop`}</Link>
+          </b>
+        </li>
+      )}
     </Fragment>
   );
 };

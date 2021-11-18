@@ -21,12 +21,16 @@ export const AddReviewForm = (props) => {
     event.preventDefault();
     const { content, rate } = values;
     const { address } = user;
-    console.log(address);
 
-    await contract.methods
-      .newReview(shop, content, parent ? 1 : rate, parent ? parent : 0)
-      .send({ from: address });
-    props.onSubmit(event, values);
+    try {
+      await contract.methods
+        .newReview(shop, content, parent ? 1 : rate, parent ? parent : 0)
+        .send({ from: address });
+      props.onSubmit(event, values);
+    } catch (e) {
+      console.log(e);
+      alert(e.message);
+    }
   };
 
   return (

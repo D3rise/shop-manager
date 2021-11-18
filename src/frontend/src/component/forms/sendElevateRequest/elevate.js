@@ -22,7 +22,8 @@ export const SendElevateRequestForm = (props) => {
     const { role, shop } = requestDetails;
 
     const roleToRequest = getKeyByValue(Roles, role);
-    console.log(roleToRequest);
+    console.log(shop);
+    console.log(typeof roleToRequest, roleToRequest);
 
     try {
       await contract.methods
@@ -63,11 +64,14 @@ export const SendElevateRequestForm = (props) => {
                 value={requestDetails.shop}
                 onChange={handleChange}
               >
-                {shops.map((shop) => (
-                  <>
-                    <option value={shop}>{capitalizeString(shop)}</option>
-                  </>
-                ))}
+                {shops.map(
+                  (shop) =>
+                    shop && (
+                      <>
+                        <option value={shop}>{capitalizeString(shop)}</option>
+                      </>
+                    )
+                )}
               </select>
             </label>
           </>

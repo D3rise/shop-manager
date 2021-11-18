@@ -38,7 +38,7 @@ export const Header = (props) => {
           <>
             <b>Current balance: {fromWei(String(balance), "ether")} ether</b>
             <br />
-            <b>Current role: {role}</b>
+            <b>Current role: {Roles[role]}</b>
             {role !== getKeyByValue(Roles, "BANK") &&
               role !== getKeyByValue(Roles, "SHOP") &&
               role !== getKeyByValue(Roles, "PROVIDER") && (
@@ -46,7 +46,7 @@ export const Header = (props) => {
                   <label>
                     Change role:
                     <select onChange={handleChange} value={selectedRole}>
-                      {Roles.slice(0, maxRole).map((role) => (
+                      {Roles.slice(0, maxRole + 1).map((role) => (
                         <>
                           <option value={role}>{role}</option>
                         </>

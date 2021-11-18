@@ -90,6 +90,7 @@ export const RemoveShopForm = (props) => {
     try {
       await removeShop(contract, city, user.address);
       props.onRemove(true, city);
+      getShops();
     } catch (e) {
       console.error(e);
       alert(e.message);
@@ -102,11 +103,14 @@ export const RemoveShopForm = (props) => {
         <label>
           City:
           <select value={city} onChange={handleChange}>
-            {shops.map((shop) => (
-              <>
-                <option value={shop}>{shop}</option>
-              </>
-            ))}
+            {shops.map(
+              (shop) =>
+                shop && (
+                  <>
+                    <option value={shop}>{shop}</option>
+                  </>
+                )
+            )}
           </select>
         </label>
         <br />

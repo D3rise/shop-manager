@@ -11,6 +11,11 @@ export const Abi = [
         name: "requestAuthor",
         type: "address",
       },
+      {
+        internalType: "bool",
+        name: "accept",
+        type: "bool",
+      },
     ],
     name: "approveElevationRequest",
     outputs: [],
@@ -23,6 +28,11 @@ export const Abi = [
         internalType: "string",
         name: "shopCity",
         type: "string",
+      },
+      {
+        internalType: "bool",
+        name: "accept",
+        type: "bool",
       },
     ],
     name: "approveMoneyRequest",

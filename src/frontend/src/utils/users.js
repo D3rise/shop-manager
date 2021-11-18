@@ -17,7 +17,13 @@ export const addUser = async (
   await transferFromReserve(web3, address, web3.utils.toWei("2", "ether"));
 
   await contract.methods
-    .newUser(address, username, fullName, password, secret)
+    .newUser(
+      address,
+      username,
+      fullName,
+      web3.utils.sha3(password),
+      web3.utils.sha3(secret)
+    )
     .send({ from: address });
 
   return address;

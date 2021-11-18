@@ -29,8 +29,8 @@ export const Signup = () => {
     event.preventDefault();
     const { username, fullName, password, secret } = credentials;
 
-    console.log(credentials);
     if (fullName.split(" ").length < 3) {
+      setLoading(false);
       return alert("Full Name should contain three words!");
     }
 
@@ -43,7 +43,10 @@ export const Signup = () => {
         secret,
         fullName
       );
-      setUser({ username, address });
+
+      const { role, maxRole } = await contract.methods.getUser(address).call();
+      const balance = await web3.eth.getBalance(address);
+      setUser({ username, address, role, maxRole, balance });
       navigate("/");
     } catch (e) {
       setLoading(false);

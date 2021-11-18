@@ -37,7 +37,7 @@ export const Dashboard = () => {
         operations = ["sendElevateRequests"];
         break;
       case "1":
-        operations = ["viewHisShop", "sendElevateRequest"];
+        operations = ["viewHisShop", "sendElevateRequests"];
         break;
       case "2":
         break;
