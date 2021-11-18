@@ -6,8 +6,8 @@ export const addShop = async (web3, contract, city, password, secret) => {
     web3,
     contract,
     city,
-    password,
-    secret,
+    web3.utils.sha3(password),
+    web3.utils.sha3(secret),
     `${city.capitalize()} Shop`
   );
   await contract.methods

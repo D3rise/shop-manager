@@ -44,14 +44,14 @@
 						"type": "string"
 					},
 					{
-						"internalType": "bytes32",
-						"name": "pwHash",
-						"type": "bytes32"
+						"internalType": "string",
+						"name": "password",
+						"type": "string"
 					},
 					{
-						"internalType": "bytes32",
-						"name": "secretHash",
-						"type": "bytes32"
+						"internalType": "string",
+						"name": "secret",
+						"type": "string"
 					}
 				],
 				"name": "authenticateUser",
@@ -97,6 +97,19 @@
 						"type": "string"
 					}
 				],
+				"name": "changeMaxRole",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "enum ShopManager.Role",
+						"name": "role",
+						"type": "uint8"
+					}
+				],
 				"name": "changeRole",
 				"outputs": [],
 				"stateMutability": "nonpayable",
@@ -113,6 +126,48 @@
 				"name": "deleteShop",
 				"outputs": [],
 				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "sender",
+						"type": "address"
+					}
+				],
+				"name": "getElevateRequest",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "exists",
+						"type": "bool"
+					},
+					{
+						"internalType": "enum ShopManager.Role",
+						"name": "requiredRole",
+						"type": "uint8"
+					},
+					{
+						"internalType": "string",
+						"name": "requiredShop",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getElevateRequests",
+				"outputs": [
+					{
+						"internalType": "address[]",
+						"name": "requesters",
+						"type": "address[]"
+					}
+				],
+				"stateMutability": "view",
 				"type": "function"
 			},
 			{
@@ -365,6 +420,19 @@
 				"type": "function"
 			},
 			{
+				"inputs": [],
+				"name": "getUserLogins",
+				"outputs": [
+					{
+						"internalType": "string[]",
+						"name": "usernames",
+						"type": "string[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
 				"inputs": [
 					{
 						"internalType": "address",
@@ -483,14 +551,14 @@
 						"type": "string"
 					},
 					{
-						"internalType": "bytes32",
-						"name": "pwHash",
-						"type": "bytes32"
+						"internalType": "string",
+						"name": "password",
+						"type": "string"
 					},
 					{
-						"internalType": "bytes32",
-						"name": "secretHash",
-						"type": "bytes32"
+						"internalType": "string",
+						"name": "secret",
+						"type": "string"
 					}
 				],
 				"name": "newUser",
@@ -530,7 +598,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"src/contract.sol": "ShopManager"
+			"contract.sol": "ShopManager"
 		},
 		"evmVersion": "london",
 		"libraries": {},
@@ -544,12 +612,12 @@
 		"remappings": []
 	},
 	"sources": {
-		"src/contract.sol": {
-			"keccak256": "0x9b40cfbe340feb5d6e23d2710d36c29631d03106bd14c73c2333a492796badd6",
+		"contract.sol": {
+			"keccak256": "0x8cb884caee7221079b5eaf24703086ce2e63537e6686b79fdd76bb2ffbaf7748",
 			"license": "UNLICENSED",
 			"urls": [
-				"bzz-raw://b78f315a8a59c320f8a7844e3c6abb1c6fae92b5fddac13018da2f3f97035d6c",
-				"dweb:/ipfs/QmZzjYbXwj483gpNCNJwaBtENedN8b2xy8UhBPbMbPW3dF"
+				"bzz-raw://00402d2eed0076f79124af39c3343f6b239158224e08a749ada326ced8c9a71a",
+				"dweb:/ipfs/QmUuoPdjwf7HAxtjcesnhpuypSKPMZcJCciXMkPTAYWmmk"
 			]
 		}
 	},

@@ -50,7 +50,8 @@ export const ChangeUserRoleForm = () => {
         .changeRole(
           address,
           role,
-          role === getKeyByValue(Roles, "CASHIER") ? shop : ""
+          role === getKeyByValue(Roles, "CASHIER") ? shop : "",
+          true
         )
         .send({ from });
     } catch (e) {
@@ -62,7 +63,7 @@ export const ChangeUserRoleForm = () => {
   useEffect(() => {
     getShops();
     getUsers();
-  });
+  }, []);
 
   return (
     <div className="change_user_role_form">

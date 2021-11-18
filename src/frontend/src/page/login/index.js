@@ -27,18 +27,33 @@ export const Login = () => {
     const { username, password, secret } = credentials;
 
     try {
-      console.log(username);
       const address = await contract.methods.getUserAddress(username).call();
       const authenticated = await web3.eth.personal.unlockAccount(
         address,
-        password
+        password,
+        0
       );
 
       if (authenticated) {
+        console.log(
+          username,
+          web3.utils.sha3(password),
+          web3.utils.sha3(secret)
+        );
+
         await contract.methods
-          .authenticateUser(username, password, secret)
+          .authenticateUser(
+            username,
+            web3.utils.sha3(password),
+            web3.utils.sha3(secret)
+          )
           .call();
-        setUser({ username, address });
+
+        const { role, maxRole } = await contract.methods
+          .getUser(address)
+          .call();
+        const balance = await web3.eth.getBalance(address);
+        setUser({ username, address, balance, role, maxRole });
       }
     } catch (e) {
       console.log(e);

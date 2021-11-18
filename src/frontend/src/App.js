@@ -23,12 +23,23 @@ export const App = () => {
   const [user, setUser] = useLocalStorage("user", {
     username: "",
     address: "",
+    role: "",
+    maxRole: "",
+    balance: "",
   });
+
+  console.log(user);
 
   return (
     <Context.Provider value={{ web3, contract, user, setUser }}>
       <div className="App">
-        <Header username={user.username} />
+        <Header
+          username={user.username}
+          role={user.role}
+          maxRole={user.maxRole}
+          balance={user.balance}
+          onChangeRole={() => {}}
+        />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/shop/:city" element={<Shop />} />
