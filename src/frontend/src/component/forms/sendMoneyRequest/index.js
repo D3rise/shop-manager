@@ -3,6 +3,7 @@ import { useContext } from "../../../hook/context";
 
 export const SendMoneyRequestForm = () => {
   const {
+    web3,
     user: { address: from },
     contract,
   } = useContext();
@@ -17,7 +18,9 @@ export const SendMoneyRequestForm = () => {
     event.preventDefault();
 
     try {
-      await contract.methods.newMoneyRequest(count).send({ from });
+      await contract.methods
+        .newMoneyRequest(web3.utils.toWei(count, "ether"))
+        .send({ from });
       alert(
         "Successfully sent money request to bank! Required count of money: " +
           count

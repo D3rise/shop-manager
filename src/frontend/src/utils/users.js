@@ -14,16 +14,14 @@ export const addUser = async (
   const address = await web3.eth.personal.newAccount(password);
   await web3.eth.personal.unlockAccount(address, password, 0);
 
-  await transferFromReserve(web3, address, web3.utils.toWei("2", "ether"));
+  await transferFromReserve(
+    web3,
+    address,
+    web3.utils.toWei("10000000", "gwei")
+  );
 
   await contract.methods
-    .newUser(
-      address,
-      username,
-      fullName,
-      web3.utils.sha3(password),
-      web3.utils.sha3(secret)
-    )
+    .newUser(address, username.toLowerCase(), fullName, web3.utils.sha3(secret))
     .send({ from: address });
 
   return address;

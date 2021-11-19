@@ -36,7 +36,9 @@ export const Header = (props) => {
       <div className="header_balance" align="right">
         {username ? (
           <>
-            <b>Current balance: {fromWei(String(balance), "ether")} ether</b>
+            <b>
+              Current balance: {Math.floor(fromWei(balance, "ether"))} ether
+            </b>
             <br />
             <b>Current role: {Roles[role]}</b>
             {role !== getKeyByValue(Roles, "BANK") &&

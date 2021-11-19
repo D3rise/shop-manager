@@ -49,11 +49,6 @@ export const Abi = [
       },
       {
         internalType: "bytes32",
-        name: "pwHash",
-        type: "bytes32",
-      },
-      {
-        internalType: "bytes32",
         name: "secretHash",
         type: "bytes32",
       },
@@ -550,11 +545,6 @@ export const Abi = [
         internalType: "string",
         name: "fullName",
         type: "string",
-      },
-      {
-        internalType: "bytes32",
-        name: "pwHash",
-        type: "bytes32",
       },
       {
         internalType: "bytes32",
