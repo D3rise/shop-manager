@@ -321,6 +321,7 @@ contract ShopManager {
         shopCitites.push(city);
         shops[city] = Shop(city, owner, true);
         users[owner].role = Role.SHOP;
+        users[owner].maxRole = Role.SHOP;
         users[owner].shop = city;
     }
 
