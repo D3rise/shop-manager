@@ -14,6 +14,11 @@ export const Header = (props) => {
     setSelectedRole(newSelectedRole);
   };
 
+  const handleChangeRole = (event) => {
+    event.preventDefault();
+    onChangeRole(selectedRole);
+  };
+
   return (
     <div className="header">
       <div className="header_title">
@@ -41,30 +46,29 @@ export const Header = (props) => {
             </b>
             <br />
             <b>Current role: {Roles[role]}</b>
-            {role !== getKeyByValue(Roles, "BANK") &&
-              role !== getKeyByValue(Roles, "SHOP") &&
-              role !== getKeyByValue(Roles, "PROVIDER") && (
-                <form onSubmit={() => onChangeRole()}>
-                  <label>
-                    Change role:
-                    <select onChange={handleChange} value={selectedRole}>
-                      {Roles.slice(0, maxRole + 1).map((role) => (
-                        <>
-                          <option value={role}>{role}</option>
-                        </>
-                      ))}
-                    </select>
-                  </label>
-                  <button type="submit">Change</button>
-                </form>
-              )}
+            {(maxRole === getKeyByValue(Roles, "ADMIN") ||
+              (role !== getKeyByValue(Roles, "BANK") &&
+                role !== getKeyByValue(Roles, "SHOP") &&
+                role !== getKeyByValue(Roles, "PROVIDER"))) && (
+              <form onSubmit={handleChangeRole}>
+                <label>
+                  Change role:
+                  <select onChange={handleChange} value={selectedRole}>
+                    {Roles.slice(0, maxRole + 1).map((role, i) => (
+                      <option key={i}>{role}</option>
+                    ))}
+                  </select>
+                </label>
+                <button type="submit">Change</button>
+              </form>
+            )}
           </>
         ) : null}
       </div>
 
       <div className="header_navigator">
         <ul>
-          <li>
+          <li key="home">
             <Link to="/">Home</Link>
           </li>
         </ul>

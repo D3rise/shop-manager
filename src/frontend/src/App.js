@@ -11,6 +11,8 @@ import { Signup } from "./page/signup";
 import { unlockReserve } from "./utils/users";
 import { Logout } from "./page/logout";
 import { Dashboard } from "./page/dashboard";
+import { changeRole, Roles } from "./utils/roles";
+import { getKeyByValue } from "./utils";
 
 export const App = () => {
   const web3 = new Web3(process.env.REACT_APP_GETH_ENDPOINT);
@@ -28,6 +30,17 @@ export const App = () => {
     balance: "",
   });
 
+  const handleRoleChange = (role) => {
+    changeRole(
+      contract,
+      user.address,
+      user.address,
+      getKeyByValue(Roles, role)
+    ).then(() => {
+      setUser({ ...user, role: getKeyByValue(Roles, role) });
+    });
+  };
+
   return (
     <Context.Provider value={{ web3, contract, user, setUser }}>
       <div className="App">
@@ -36,7 +49,7 @@ export const App = () => {
           role={user.role}
           maxRole={user.maxRole}
           balance={user.balance}
-          onChangeRole={() => {}}
+          onChangeRole={handleRoleChange}
         />
         <Routes>
           <Route path="/" element={<Home />} />

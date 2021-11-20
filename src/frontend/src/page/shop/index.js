@@ -89,6 +89,32 @@ export const Shop = () => {
                     <br />
                     <blockquote>{review.review.content}</blockquote>
                     <i>Rate: {review.review.rate}/10</i>
+                    <br />
+                    {user.address && (
+                      <>
+                        <button onClick={() => onRateReview(review, true)}>
+                          Like
+                        </button>
+                        <button onClick={() => onRateReview(review, false)}>
+                          Dislike
+                        </button>
+                      </>
+                    )}
+                    <br />
+                    {user.address ? (
+                      review.showAnswerForm ? (
+                        <AddReviewForm
+                          isAnswer={true}
+                          parent={review.id}
+                          shop={city}
+                          onSubmit={getReviews}
+                        />
+                      ) : (
+                        <button onClick={() => onShowAnswerForm(i)}>
+                          Answer
+                        </button>
+                      )
+                    ) : null}
                     {review.answers.length === 0 ? null : (
                       <>
                         <h5>Answers: </h5>
@@ -129,32 +155,6 @@ export const Shop = () => {
                       {review.review.likes.length -
                         review.review.dislikes.length}
                     </b>
-                    <br />
-                    {user.address && (
-                      <>
-                        <button onClick={() => onRateReview(review, true)}>
-                          Like
-                        </button>
-                        <button onClick={() => onRateReview(review, false)}>
-                          Dislike
-                        </button>
-                      </>
-                    )}
-                    <br />
-                    {user.address ? (
-                      review.showAnswerForm ? (
-                        <AddReviewForm
-                          isAnswer={true}
-                          parent={review.id}
-                          shop={city}
-                          onSubmit={getReviews}
-                        />
-                      ) : (
-                        <button onClick={() => onShowAnswerForm(i)}>
-                          Answer
-                        </button>
-                      )
-                    ) : null}
                   </li>
                 </>
               ) : null

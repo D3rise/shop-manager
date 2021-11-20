@@ -1,18 +1,16 @@
 import { useEffect, useState } from "react";
-import { Shop } from "../../component/shop";
+import { Shop } from "../../component/lists/shop";
 import { useContext } from "../../hook/context";
 
 export const Home = () => {
   const { contract } = useContext();
   const [shops, setShops] = useState([]);
 
-  const getShops = async () => {
-    const actualShops = await contract.methods.getShops().call();
-    setShops(actualShops);
-  };
-
   useEffect(() => {
-    getShops();
+    contract.methods
+      .getShops()
+      .call()
+      .then((actualShops) => setShops(actualShops));
   });
 
   return (

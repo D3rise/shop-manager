@@ -20,7 +20,7 @@ export const ElevateRequestsList = () => {
           accept ? "accepted" : "denied"
         } request of user with address ${requester}!`
       );
-      getRequests();
+      await getRequests();
     } catch (e) {
       console.log(e);
       alert(e.message);

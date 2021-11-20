@@ -11,6 +11,9 @@ export const addUser = async (
     .call();
   if (exists) throw new Error("User exists!");
 
+  console.log(password);
+  console.log(secret);
+
   const address = await web3.eth.personal.newAccount(password);
   await web3.eth.personal.unlockAccount(address, password, 0);
 

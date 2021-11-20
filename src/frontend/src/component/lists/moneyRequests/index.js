@@ -40,7 +40,7 @@ export const MoneyRequestsList = () => {
       alert(
         `Successfully ${accept ? "accepted" : "denied"} request of ${
           request.requester
-        }, transfered ${request.request.count} ether`
+        }, transfered ${web3.utils.fromWei(request.request.count)} ether`
       );
       await getRequests();
     } catch (e) {
@@ -62,7 +62,10 @@ export const MoneyRequestsList = () => {
                 <li key={i}>
                   <h4>{request.requester}</h4>
                   <h5>
-                    Wanted sum of money: <b>{request.request.count}</b>
+                    Wanted sum of money:{" "}
+                    <strong>
+                      {web3.utils.fromWei(request.request.count)} ether
+                    </strong>
                   </h5>
                   <button onClick={() => handleRequestOperation(request, true)}>
                     Accept

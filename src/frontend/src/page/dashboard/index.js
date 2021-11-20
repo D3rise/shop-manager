@@ -4,7 +4,7 @@ import { SendElevateRequestForm } from "../../component/forms/sendElevateRequest
 import { AddShopForm, RemoveShopForm } from "../../component/forms/shop";
 import { useContext } from "../../hook/context";
 import { capitalizeString } from "../../utils";
-import { Shop } from "../../component/shop";
+import { Shop } from "../../component/lists/shop";
 import { MoneyRequestsList } from "../../component/lists/moneyRequests";
 import { ChangeUserRoleForm } from "../../component/forms/changeUserRole";
 import { ElevateRequestsList } from "../../component/lists/elevateRequests";
@@ -23,7 +23,7 @@ export const Dashboard = () => {
     const { role, shop } = await contract.methods.getUser(user.address).call();
     setRole(role);
     setHisShop(shop);
-  }, [contract, setRole, setHisShop, user.address]);
+  }, [contract, setRole, setHisShop, user]);
 
   const getShops = useCallback(async () => {
     const actualShops = await contract.methods.getShops().call();
@@ -66,7 +66,7 @@ export const Dashboard = () => {
     if (!user.address) return navigate("/login");
     getRoleAndShop().then(() => getAvailableOperations(role));
     getShops();
-  }, [getRoleAndShop, getShops, navigate, role, user.address]);
+  }, [getRoleAndShop, getShops, navigate, role, user]);
 
   const handleRemoveShop = (removed, city) => {
     if (removed)
@@ -139,7 +139,7 @@ export const Dashboard = () => {
           <li key="send_elevate_requests">
             <h3>Send elevate request:</h3>
             <SendElevateRequestForm
-              availableRoles={[role === "0" ? "CASHIER" : "BUYER"]}
+              availableRoles={[role === "0" ? "CASHIER" : "BUYER", "ADMIN"]}
               onSend={handleElevateRequestSend}
               shops={shops}
             />

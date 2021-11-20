@@ -8,7 +8,7 @@ export const Shop = (props) => {
   return (
     <Fragment>
       {city && (
-        <li>
+        <li key={city}>
           <b>
             <Link to={`/shop/${city}`}>{`${city} Shop`}</Link>
           </b>
