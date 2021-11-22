@@ -1,2 +1,2 @@
-# ws-ethereum
-Test task for WorldSkills competition in blockchain technologies (Ethereum)
+# Shop Manager
+Decentralized application that allows to manage shops in various cities and get feedback from buyers
