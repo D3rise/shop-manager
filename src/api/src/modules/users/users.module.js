@@ -7,7 +7,9 @@ class UsersModule extends BaseModule {
   }
 
   async getUserLogins() {
-    return await this.contract.methods.getUserLogins().call();
+    return await this.contract.methods
+      .getUserLogins()
+      .call({ from: this.web3.user });
   }
 
   getUser(userAddress) {

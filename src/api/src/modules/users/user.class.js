@@ -7,6 +7,10 @@ class User extends BaseEntity {
     this.address = address;
   }
 
+  changeRole(role) {
+    this.contract.methods.changeRole(role).send({ from: this.web3.user });
+  }
+
   isNull() {
     return !this.data.exists;
   }
