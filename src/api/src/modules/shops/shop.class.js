@@ -3,9 +3,12 @@ const { BaseEntity } = require("../base/entity.base");
 class Shop extends BaseEntity {
   constructor(web3, city) {
     super(web3);
-
     this.city = city;
-    this._initData();
+
+    return (async () => {
+      await this._initData();
+      return this
+    })()
   }
 
   isNull() {

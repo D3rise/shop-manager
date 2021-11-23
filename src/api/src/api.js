@@ -1,6 +1,7 @@
 const { Web3Contract } = require("./contract");
 const { ShopsModule } = require("./modules/shops/shops.module");
 const { UsersModule } = require("./modules/users/users.module");
+const { ReviewsModule } = require("./modules/reviews/reviews.module");
 
 class API {
   constructor(web3Endpoint) {
@@ -29,6 +30,7 @@ class API {
   _initClasses() {
     this.users = new UsersModule(this.web3);
     this.shops = new ShopsModule(this.web3);
+    this.reviews = new ReviewsModule(this.web3)
   }
 }
 

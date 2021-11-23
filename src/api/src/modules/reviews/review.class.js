@@ -1,13 +1,14 @@
-const { BaseEntity } = require("../../base/entity.base");
+const { BaseEntity } = require("../base/entity.base");
 
 class Review extends BaseEntity {
-  constructor(web3, contract, id) {
-    super();
-    this.web3 = web3;
-    this.contract = contract;
+  constructor(web3, id) {
+    super(web3);
     this.id = id;
 
-    this._initData();
+    return (async () => {
+      await this._initData();
+      return this
+    })()
   }
 
   isNull() {

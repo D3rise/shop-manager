@@ -13,4 +13,9 @@ describe("api", () => {
     expect(address).not.toBeNull();
     expect(api.web3.user).not.toBeNull();
   });
+
+  it("should not authenticate", async () => {
+    const address = api.authenticate("petr", "123", "123");
+    await expect(address).rejects.toThrowError();
+  })
 });

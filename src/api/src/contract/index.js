@@ -6,11 +6,11 @@ class Web3Contract {
     this.web3 = new Web3(web3Endpoint);
     this.contract = new this.web3.eth.Contract(ABI, contractAddress);
 
-    this.user = null;
+    this.userAddress = null;
   }
 
   changeUser(address) {
-    this.user = address;
+    this.userAddress = address;
   }
 }
 

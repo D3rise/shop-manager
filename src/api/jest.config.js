@@ -11,10 +11,10 @@ module.exports = {
   // bail: 0,
 
   // The directory where Jest should store its cached dependency information
-  // cacheDirectory: "C:\\Users\\ClassAdmin\\AppData\\Local\\Temp\\jest",
+  // cacheDirectory: "C:\\Users\\deris\\AppData\\Local\\Temp\\jest",
 
   // Automatically clear mock calls and instances between every test
-  clearMocks: true,
+  // clearMocks: false,
 
   // Indicates whether the coverage information should be collected while executing the test
   // collectCoverage: false,
