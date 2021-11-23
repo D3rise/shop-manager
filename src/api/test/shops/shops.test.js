@@ -1,4 +1,4 @@
-const { API } = require("../src/api");
+const { API } = require("../../src/api");
 let api;
 
 describe("shops", () => {

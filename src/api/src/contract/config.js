@@ -1,6 +1,6 @@
 const abi = require("./abi");
 
 module.exports = {
-  contractAddress: "0xfCE146ee1Ec02D29804B02483c6C271dd2c6db38",
+  contractAddress: "0x101BdceC6599169Ff2F55F3FFAcf34FFAE4b4bd1",
   ABI: abi,
 };

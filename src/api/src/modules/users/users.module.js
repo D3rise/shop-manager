@@ -1,9 +1,12 @@
 const { BaseModule } = require("../base/module.base");
 const { User } = require("./user.class");
+const { RolesModule } = require("./roles/roles.module");
 
 class UsersModule extends BaseModule {
   constructor(web3) {
     super(web3);
+
+    this.__initClasses()
   }
 
   async getUserLogins() {
@@ -15,7 +18,11 @@ class UsersModule extends BaseModule {
   }
 
   async getUser(userAddress) {
-    return new User(this.web3, userAddress);
+    return new User(this.web3, userAddress, this);
+  }
+
+  __initClasses() {
+    this.roles = new RolesModule(this.web3)
   }
 }
 

@@ -3,8 +3,9 @@ const { BaseEntity } = require("../base/entity.base");
 const { Shop } = require("../shops/shop.class");
 
 class User extends BaseEntity {
-  constructor(web3, address) {
+  constructor(web3, address, usersModule) {
     super(web3);
+    this.users = usersModule
 
     return (async () => {
       this.address = address;
@@ -14,7 +15,7 @@ class User extends BaseEntity {
   }
 
   getUsername() {
-    return
+    return this.data.username;
   }
 
   getMaxRole() {
@@ -29,8 +30,9 @@ class User extends BaseEntity {
     return new Shop(this.web3, this.data.shop);
   }
 
-  changeRole(role) {
-    this.contract.methods.changeRole(role).send({ from: this.web3.user });
+  changeRole(roleName) {
+    const roleId = this.users.roles.getRoleId(roleName)
+    return this.contract.methods.changeRole(this.web3.userAddress, roleId, "", false).send({ from: this.web3.userAddress });
   }
 
   isNull() {
