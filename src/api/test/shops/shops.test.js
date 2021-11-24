@@ -9,14 +9,14 @@ describe("shops", () => {
   it("should return shop", async () => {
     const shop = await api.shops.getShop("Taganrog");
 
-    expect(shop.isNull()).toBeFalsy()
-    expect(shop.data.shopCity).toBe("Taganrog")
-  })
+    expect(shop.isNull()).toBeFalsy();
+    expect(shop.data.shopCity).toBe("Taganrog");
+  });
 
   it("should return shop cities", async () => {
-    const shopsCities = await api.shops.getShopCities()
+    const shopsCities = await api.shops.getShopCities();
 
     expect(shopsCities.length).toBeGreaterThanOrEqual(1);
-    expect(shopsCities).toContain("Dmitrov")
-  })
-})
+    expect(shopsCities).toContain("Dmitrov");
+  });
+});

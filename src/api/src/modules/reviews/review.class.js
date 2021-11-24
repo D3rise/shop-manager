@@ -7,8 +7,8 @@ class Review extends BaseEntity {
 
     return (async () => {
       await this._initData();
-      return this
-    })()
+      return this;
+    })();
   }
 
   isNull() {

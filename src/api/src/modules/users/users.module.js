@@ -6,7 +6,22 @@ class UsersModule extends BaseModule {
   constructor(web3) {
     super(web3);
 
-    this.__initClasses()
+    this.__initClasses();
+  }
+
+  async addUser(username, fullName, password, secret) {
+    const actualUsername = username.toLowerCase();
+    const existingAddress = await this.getUserAddress(actualUsername);
+    if (existingAddress) {
+      throw new Error("Such user already exists!");
+    }
+
+    const secretHash = this.web3.utils.sha3(secret);
+    const address = await this.web3.web3.eth.personal.newAccount(password);
+    await this.web3.utils.transferFromReserveAccount(address, this.web3.utils.toWei("100", "gwei"))
+
+    await this.web3.contract.methods.newUser(address, username, fullName, secretHash).send({ from: address })
+    return address
   }
 
   async getUserLogins() {
@@ -22,7 +37,7 @@ class UsersModule extends BaseModule {
   }
 
   __initClasses() {
-    this.roles = new RolesModule(this.web3)
+    this.roles = new RolesModule(this.web3);
   }
 }
 

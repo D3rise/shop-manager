@@ -1,15 +1,13 @@
 const { Web3Contract } = require("./contract");
-const { ShopsModule } = require("./modules/shops/shops.module");
-const { UsersModule } = require("./modules/users/users.module");
-const { ReviewsModule } = require("./modules/reviews/reviews.module");
-const { BankModule } = require("./modules/bank/bank.module");
-const { UtilsModule } = require("./modules/utils/utils.module")
 
 class API {
   constructor(web3Endpoint) {
-    this.web3 = new Web3Contract(web3Endpoint);
-    this.contract = this.web3.contract;
-    this._initClasses();
+    return (async () => {
+      this.web3 = await new Web3Contract(web3Endpoint);
+      this.contract = this.web3.contract;
+      this.__initClasses();
+      return this
+    })()
   }
 
   async authenticate(username, password, secret) {
@@ -24,16 +22,16 @@ class API {
       .call();
 
     if (success) {
-      this.web3.changeUser(address);
+      await this.web3.changeUser(address);
       return address;
     }
   }
 
-  _initClasses() {
-    this.users = new UsersModule(this.web3);
-    this.shops = new ShopsModule(this.web3);
-    this.reviews = new ReviewsModule(this.web3);
-    this.bank = new BankModule(this.web3);
+  __initClasses() {
+    this.users = this.web3.users;
+    this.shops = this.web3.shops;
+    this.reviews = this.web3.reviews;
+    this.bank = this.web3.bank;
     this.utils = this.web3.utils;
   }
 }

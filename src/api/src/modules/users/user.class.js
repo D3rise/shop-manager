@@ -5,13 +5,13 @@ const { Shop } = require("../shops/shop.class");
 class User extends BaseEntity {
   constructor(web3, address, usersModule) {
     super(web3);
-    this.users = usersModule
+    this.users = usersModule;
 
     return (async () => {
       this.address = address;
       await this._initData();
-      return this
-    })()
+      return this;
+    })();
   }
 
   getUsername() {
@@ -31,8 +31,10 @@ class User extends BaseEntity {
   }
 
   changeRole(roleName) {
-    const roleId = this.users.roles.getRoleId(roleName)
-    return this.contract.methods.changeRole(this.web3.userAddress, roleId, "", false).send({ from: this.web3.userAddress });
+    const roleId = this.users.roles.getRoleId(roleName);
+    return this.contract.methods
+      .changeRole(this.web3.userAddress, roleId, "", false)
+      .send({ from: this.web3.userAddress });
   }
 
   isNull() {
@@ -40,7 +42,7 @@ class User extends BaseEntity {
   }
 
   async _initData() {
-    this.data = await this.contract.methods.getUser(this.address).call()
+    this.data = await this.contract.methods.getUser(this.address).call();
   }
 }
 

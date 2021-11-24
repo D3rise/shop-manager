@@ -13,6 +13,15 @@ class ShopsModule extends BaseModule {
     super(web3);
   }
 
+  async addShop(city, password, secret) {
+    const existingShop = await this.web3.shops.getShop(city)
+    if(!existingShop.isNull()) throw new Error("Such shop already exists")
+
+    const address = await this.web3.users.addUser(city, `${city} Shop`, password, secret)
+    await this.web3.contract.methods.newShop(city, address).send({ from: address })
+    return
+  }
+
   getShop(city) {
     return new Shop(this.web3, city);
   }

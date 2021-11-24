@@ -458,7 +458,7 @@ contract ShopManager {
                 "You can publish reviews only on your shop!"
             );
             require(answer != 0, "You can only send answers!");
-        } else {
+        } else if(answer == 0) {
             require(
                 rate >= 1 && rate <= 10,
                 "Rate can only be between 1 and 10"
@@ -575,10 +575,6 @@ contract ShopManager {
     // Отмена запроса денег
     function cancelMoneyRequest() public onlyShopOwner {
         Shop memory shop = shops[users[msg.sender].shop];
-        require(
-            moneyReqs[shop.city].exists,
-            "You haven't sent any money request"
-        );
 
         deleteMoneyRequest(shop.city);
     }

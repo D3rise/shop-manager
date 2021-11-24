@@ -17,5 +17,5 @@ describe("api", () => {
   it("should not authenticate", async () => {
     const address = api.authenticate("petr", "123", "123");
     await expect(address).rejects.toThrowError();
-  })
+  });
 });

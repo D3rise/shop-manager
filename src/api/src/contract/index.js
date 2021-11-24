@@ -2,23 +2,35 @@ const Web3 = require("web3");
 const { ABI, contractAddress } = require("./config");
 const { User } = require("../modules/users/user.class");
 const { UtilsModule } = require("../modules/utils/utils.module");
+const { UsersModule } = require("../modules/users/users.module");
+const { ShopsModule } = require("../modules/shops/shops.module");
+const { ReviewsModule } = require("../modules/reviews/reviews.module");
+const { BankModule } = require("../modules/bank/bank.module");
 
 class Web3Contract {
-  constructor(web3Endpoint, utilsModule) {
+  constructor(web3Endpoint) {
     this.web3 = new Web3(web3Endpoint);
     this.contract = new this.web3.eth.Contract(ABI, contractAddress);
 
-    this.__initUser()
-    this.__initClasses()
+    this.__initUser();
+
+    return (async () => {
+      await this.__initClasses();
+      return this
+    })()
   }
 
   async changeUser(address) {
     this.userAddress = address;
-    this.user = await new User(this, address)
+    this.user = await new User(this, address);
   }
 
-  __initClasses() {
-    this.utils = new UtilsModule(this)
+  async __initClasses() {
+    this.users = await new UsersModule(this);
+    this.shops = await new ShopsModule(this);
+    this.reviews = await new ReviewsModule(this);
+    this.bank = await new BankModule(this);
+    this.utils = await new UtilsModule(this);
   }
 
   __initUser() {

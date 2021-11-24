@@ -8,15 +8,15 @@ class BankModule extends BaseModule {
   }
 
   _initModules() {
-    this.moneyRequests = new MoneyRequestsModule(this.web3)
+    this.moneyRequests = new MoneyRequestsModule(this.web3);
   }
 
   getBalance(address) {
-    return this.web3.web3.eth.getBalance(address)
+    return this.web3.web3.eth.getBalance(address);
   }
 
   getSelfBalance() {
-    return this.getBalance(this.web3.userAddress)
+    return this.getBalance(this.web3.userAddress);
   }
 }
 

@@ -6,12 +6,12 @@ class RolesModule extends BaseModule {
   }
 
   static get ROLES() {
-    return ["BUYER", "CASHIER", "PROVIDER", "SHOP", "BANK", "ADMIN"]
+    return ["BUYER", "CASHIER", "PROVIDER", "SHOP", "BANK", "ADMIN"];
   }
 
   getRoleId(roleName) {
-    return this.web3.utils.getKeyByValue(RolesModule.ROLES, roleName)
+    return this.web3.utils.getKeyByValue(RolesModule.ROLES, roleName);
   }
 }
 
-module.exports = { RolesModule }
+module.exports = { RolesModule };
