@@ -13,11 +13,7 @@ class Web3Contract {
     this.contract = new this.web3.eth.Contract(ABI, contractAddress);
 
     this.__initUser();
-
-    return (async () => {
-      await this.__initClasses();
-      return this
-    })()
+    this.__initClasses();
   }
 
   async changeUser(address) {
@@ -26,10 +22,10 @@ class Web3Contract {
   }
 
   async __initClasses() {
-    this.users = await new UsersModule(this);
-    this.shops = await new ShopsModule(this);
-    this.reviews = await new ReviewsModule(this);
-    this.bank = await new BankModule(this);
+    this.users = new UsersModule(this);
+    this.shops = new ShopsModule(this);
+    this.reviews = new ReviewsModule(this);
+    this.bank = new BankModule(this);
     this.utils = await new UtilsModule(this);
   }
 

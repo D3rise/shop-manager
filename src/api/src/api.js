@@ -2,12 +2,9 @@ const { Web3Contract } = require("./contract");
 
 class API {
   constructor(web3Endpoint) {
-    return (async () => {
-      this.web3 = await new Web3Contract(web3Endpoint);
-      this.contract = this.web3.contract;
-      this.__initClasses();
-      return this
-    })()
+    this.web3 = new Web3Contract(web3Endpoint);
+    this.contract = this.web3.contract;
+    this.__initClasses();
   }
 
   async authenticate(username, password, secret) {
@@ -16,9 +13,8 @@ class API {
 
     await web3.eth.personal.unlockAccount(address, password);
 
-    const secretHash = web3.utils.sha3(secret);
     const success = await this.contract.methods
-      .authenticateUser(username, secretHash)
+      .authenticateUser(username, secret)
       .call();
 
     if (success) {

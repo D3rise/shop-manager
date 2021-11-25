@@ -1,14 +1,10 @@
 const { BaseModule } = require("../base/module.base");
-const reserveAccount = require("../../constant/reserveAccount")
+const reserveAccount = require("../../constant/reserveAccount");
 
 class UtilsModule extends BaseModule {
   constructor(web3) {
     super(web3);
-
-    return (async () => {
-      await this.__unlockReserveAccount()
-      return this
-    })()
+    this.__unlockReserveAccount();
   }
 
   toBN(number) {
@@ -24,7 +20,7 @@ class UtilsModule extends BaseModule {
   }
 
   capitalizeString(str) {
-    return str.at(0).toUpperCase() + str.slice(1)
+    return str.at(0).toUpperCase() + str.slice(1);
   }
 
   getKeyByValue(object, value) {
@@ -32,11 +28,19 @@ class UtilsModule extends BaseModule {
   }
 
   transferFromReserveAccount(address, amount) {
-    return this.web3.web3.eth.sendTransaction({ from: reserveAccount.address, to: address, value: amount })
+    return this.web3.web3.eth.sendTransaction({
+      from: reserveAccount.address,
+      to: address,
+      value: amount,
+    });
   }
 
   __unlockReserveAccount() {
-    return this.web3.web3.eth.personal.unlockAccount(reserveAccount.address, reserveAccount.password, 0)
+    return this.web3.web3.eth.personal.unlockAccount(
+      reserveAccount.address,
+      reserveAccount.password,
+      0
+    );
   }
 }
 

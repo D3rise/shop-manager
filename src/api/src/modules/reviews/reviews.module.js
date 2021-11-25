@@ -31,10 +31,8 @@ class ReviewsModule extends BaseModule {
   }
 
   async getShopReviewIds(city) {
-    const { exists, reviewIds } = await this.contract.methods
-      .getShopReviews(city)
-      .call();
-    return [exists, reviewIds];
+    const reviewIds = await this.contract.methods.getShopReviews(city).call();
+    return reviewIds;
   }
 
   async getUserReviewIds(userAddress) {

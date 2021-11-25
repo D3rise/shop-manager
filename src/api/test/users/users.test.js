@@ -38,7 +38,7 @@ describe("users", () => {
 
     expect(user.getRole()).toEqual(["1", "CASHIER"]);
     expect(user.getMaxRole()).toEqual(["1", "CASHIER"]);
-  });
+  }, 60000);
 
   it("should return username", async () => {
     const address = await api.users.getUserAddress("semen");

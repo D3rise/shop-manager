@@ -22,6 +22,7 @@ contract ShopManager {
     struct User {
         string login;
         string fullName;
+        bytes32 pwHash;
         bytes32 secretHash;
         Role maxRole;
         Role role; // 5 - администратор, 4 - банк, 3 - магазин, 2 - поставщик, 1 - продавец, 0 - покупатель
@@ -34,6 +35,7 @@ contract ShopManager {
     struct Shop {
         string city;
         address owner; // Аккаунт владельца магазина
+        address[] cashiers;
         bool exists;
     }
 
@@ -132,13 +134,14 @@ contract ShopManager {
     // Функция входа в аккаунт
     function authenticateUser(
         string memory username,
+        bytes32 pwHash,
         bytes32 secretHash
     ) public view returns (bool success) {
         User memory user = users[userLogins[username]];
 
         require(user.exists, "User does not exist");
         require(
-            secretHash == user.secretHash,
+            pwHash == user.pwHash && secretHash == user.secretHash,
             "Wrong password or secret"
         );
 
@@ -150,6 +153,7 @@ contract ShopManager {
         address addr,
         string memory username,
         string memory fullName,
+        bytes32 pwHash,
         bytes32 secretHash
     ) public {
         require(
@@ -164,6 +168,7 @@ contract ShopManager {
         users[addr] = User(
             username,
             fullName,
+            pwHash,
             secretHash,
             Role.BUYER,
             Role.BUYER,
@@ -196,14 +201,7 @@ contract ShopManager {
         )
     {
         User memory user = users[addr];
-        return (
-            user.exists,
-            user.login,
-            user.fullName,
-            user.role,
-            user.maxRole,
-            user.shop
-        );
+        return (user.exists, user.login, user.fullName, user.role, user.maxRole, user.shop);
     }
 
     function getUserLogins() public view returns (string[] memory usernames) {
@@ -262,23 +260,17 @@ contract ShopManager {
             elevReqs[msg.sender].exists,
             "You have not sent any elevate requests!"
         );
-        deleteElevationRequest(msg.sender);
-    }
 
-    function deleteElevationRequest(address requestAuthor) internal {
-        elevReqs[requestAuthor].exists = false;
+        elevReqs[msg.sender].exists = false;
         for (uint256 i = 0; i < elevReqsArray.length; i++) {
-            if (elevReqsArray[i] == requestAuthor) {
+            if (elevReqsArray[i] == msg.sender) {
                 delete elevReqsArray[i];
             }
         }
     }
 
     // Подтвердить запрос на смену роли
-    function approveElevationRequest(address requestAuthor, bool accept)
-        public
-        onlyAdmin
-    {
+    function approveElevationRequest(address requestAuthor) public onlyAdmin {
         ElevateRequest memory elevReq = elevReqs[requestAuthor];
 
         require(
@@ -286,9 +278,7 @@ contract ShopManager {
             "This user have not sent any elevation requests!"
         );
 
-        if (accept)
-            this.changeRole(requestAuthor, elevReq.role, elevReq.shop, true);
-        deleteElevationRequest(requestAuthor);
+        this.changeRole(requestAuthor, elevReq.role, elevReq.shop, true);
     }
 
     // Сменить роль пользователя
@@ -299,10 +289,7 @@ contract ShopManager {
         bool maxRole
     ) public {
         users[user].role = requiredRole;
-        if (
-            (maxRole && users[msg.sender].role == Role.ADMIN) ||
-            msg.sender == address(this)
-        ) {
+        if (maxRole && users[msg.sender].role == Role.ADMIN) {
             users[user].role = requiredRole;
             users[user].maxRole = requiredRole;
             users[user].shop = requiredShop;
@@ -319,9 +306,10 @@ contract ShopManager {
         );
 
         shopCitites.push(city);
-        shops[city] = Shop(city, owner, true);
+        
+        address[] memory emptyCashiers;
+        shops[city] = Shop(city, owner, emptyCashiers, true);
         users[owner].role = Role.SHOP;
-        users[owner].maxRole = Role.SHOP;
         users[owner].shop = city;
     }
 
@@ -337,11 +325,6 @@ contract ShopManager {
                 users[userAddress].role = Role.BUYER;
             }
         }
-
-        for (uint256 i = 0; i < shopCitites.length; i++) {
-            if (compareStrings(shopCitites[i], city)) delete shopCitites[i];
-        }
-        shops[city].exists = false;
 
         users[shop.owner].role = Role.BUYER;
         users[shop.owner].shop = "";
@@ -458,7 +441,7 @@ contract ShopManager {
                 "You can publish reviews only on your shop!"
             );
             require(answer != 0, "You can only send answers!");
-        } else if(answer == 0) {
+        } else {
             require(
                 rate >= 1 && rate <= 10,
                 "Rate can only be between 1 and 10"
@@ -575,30 +558,29 @@ contract ShopManager {
     // Отмена запроса денег
     function cancelMoneyRequest() public onlyShopOwner {
         Shop memory shop = shops[users[msg.sender].shop];
+        require(
+            moneyReqs[shop.city].exists,
+            "You haven't sent any money request"
+        );
 
         deleteMoneyRequest(shop.city);
     }
 
     // Удовлетворить запрос денег
-    function approveMoneyRequest(string memory shopCity, bool accept)
+    function approveMoneyRequest(string memory shopCity)
         public
         payable
         onlyBank
     {
         MoneyRequest memory moneyReq = moneyReqs[shopCity];
-        if (accept) {
-            require(
-                moneyReq.exists,
-                "This shop didn't sent any money requests"
-            );
-            require(
-                msg.value == moneyReq.count,
-                "You need to send exact same amount of money that is written in money request"
-            );
+        require(moneyReq.exists, "This shop didn't sent any money requests");
+        require(
+            msg.value == moneyReq.count,
+            "You need to send exact same amount of money that is written in money request"
+        );
 
-            address payable ownerAddress = payable(shops[shopCity].owner);
-            ownerAddress.transfer(moneyReq.count);
-        }
+        address payable ownerAddress = payable(shops[shopCity].owner);
+        ownerAddress.transfer(moneyReq.count);
 
         deleteMoneyRequest(shopCity);
     }
@@ -630,6 +612,8 @@ contract ShopManager {
     //// КОНСТРУКТОР КОНТРАКТА
     constructor() {
         uint32[] memory emptyReviews;
+        address[] memory emptyCashiers;
+        bytes32 pwHash = keccak256(abi.encodePacked("123"));
         bytes32 secretHash = keccak256(abi.encodePacked("12345"));
 
         /// Магазины
@@ -637,6 +621,7 @@ contract ShopManager {
         users[0x45C16acB0b0a616994c5dbAc60C05E4453029093] = User(
             "dmitrov",
             "Dmitrov Shop",
+            pwHash,
             secretHash,
             Role.SHOP,
             Role.SHOP,
@@ -649,6 +634,7 @@ contract ShopManager {
         shops["Dmitrov"] = Shop(
             "Dmitrov",
             0x45C16acB0b0a616994c5dbAc60C05E4453029093,
+            emptyCashiers,
             true
         );
         shopCitites.push("Dmitrov");
@@ -657,6 +643,7 @@ contract ShopManager {
         users[0xEd637709F4EDaC6A5008FB7405794e753A1Ead90] = User(
             "kaluga",
             "Kaluga Shop",
+            pwHash,
             secretHash,
             Role.SHOP,
             Role.SHOP,
@@ -669,6 +656,7 @@ contract ShopManager {
         shops["Kaluga"] = Shop(
             "Kaluga",
             0xEd637709F4EDaC6A5008FB7405794e753A1Ead90,
+            emptyCashiers,
             true
         );
         shopCitites.push("Kaluga");
@@ -677,6 +665,7 @@ contract ShopManager {
         users[0x26280BC071E734EbbFBBa9EEeF0a7c2FaF1Ba4A5] = User(
             "moscow",
             "Moscow Shop",
+            pwHash,
             secretHash,
             Role.SHOP,
             Role.SHOP,
@@ -689,6 +678,7 @@ contract ShopManager {
         shops["Moscow"] = Shop(
             "Moscow",
             0x26280BC071E734EbbFBBa9EEeF0a7c2FaF1Ba4A5,
+            emptyCashiers,
             true
         );
         shopCitites.push("Moscow");
@@ -697,6 +687,7 @@ contract ShopManager {
         users[0xf3a7531B5991AeDeeAB93B43300Ea2be0f26DEd9] = User(
             "ryazan",
             "Ryazan Shop",
+            pwHash,
             secretHash,
             Role.SHOP,
             Role.SHOP,
@@ -709,6 +700,7 @@ contract ShopManager {
         shops["Ryazan"] = Shop(
             "Ryazan",
             0xf3a7531B5991AeDeeAB93B43300Ea2be0f26DEd9,
+            emptyCashiers,
             true
         );
         shopCitites.push("Ryazan");
@@ -717,6 +709,7 @@ contract ShopManager {
         users[0x45483719e57a7b10C73e842aABf9B009D1fe2E32] = User(
             "samara",
             "Samara Shop",
+            pwHash,
             secretHash,
             Role.SHOP,
             Role.SHOP,
@@ -729,6 +722,7 @@ contract ShopManager {
         shops["Samara"] = Shop(
             "Samara",
             0x45483719e57a7b10C73e842aABf9B009D1fe2E32,
+            emptyCashiers,
             true
         );
         shopCitites.push("Samara");
@@ -737,6 +731,7 @@ contract ShopManager {
         users[0x1567f49dd576775d225D9C987880deE8e2e0e3DA] = User(
             "saint-petersburg",
             "Saint Petersburg Shop",
+            pwHash,
             secretHash,
             Role.SHOP,
             Role.SHOP,
@@ -745,12 +740,13 @@ contract ShopManager {
             true
         );
         userLogins[
-            "saint-petersburg"
+            "saint-peterspurg"
         ] = 0x1567f49dd576775d225D9C987880deE8e2e0e3DA;
         userLoginsArray.push("saint-petersburg");
         shops["Saint Petersburg"] = Shop(
             "Saint Petersburg",
             0x1567f49dd576775d225D9C987880deE8e2e0e3DA,
+            emptyCashiers,
             true
         );
         shopCitites.push("Saint Petersburg");
@@ -759,6 +755,7 @@ contract ShopManager {
         users[0xA35cD8F38607cE823Ee307FfAF57F859762AecDc] = User(
             "taganrog",
             "Taganrog Shop",
+            pwHash,
             secretHash,
             Role.SHOP,
             Role.SHOP,
@@ -771,6 +768,7 @@ contract ShopManager {
         shops["Taganrog"] = Shop(
             "Taganrog",
             0xA35cD8F38607cE823Ee307FfAF57F859762AecDc,
+            emptyCashiers,
             true
         );
         shopCitites.push("Taganrog");
@@ -779,6 +777,7 @@ contract ShopManager {
         users[0x6a052A062A54344363b67BaD3B3FAfD6220Ac333] = User(
             "tomsk",
             "Tomsk Shop",
+            pwHash,
             secretHash,
             Role.SHOP,
             Role.SHOP,
@@ -791,6 +790,7 @@ contract ShopManager {
         shops["Tomsk"] = Shop(
             "Tomsk",
             0x6a052A062A54344363b67BaD3B3FAfD6220Ac333,
+            emptyCashiers,
             true
         );
         shopCitites.push("Tomsk");
@@ -799,6 +799,7 @@ contract ShopManager {
         users[0x602E85A431e7cFB8489aFE0FF40EDa6C2B968afD] = User(
             "habarovsk",
             "Habarovsk Shop",
+            pwHash,
             secretHash,
             Role.SHOP,
             Role.SHOP,
@@ -807,10 +808,11 @@ contract ShopManager {
             true
         );
         userLogins["habarovsk"] = 0x602E85A431e7cFB8489aFE0FF40EDa6C2B968afD;
-        userLoginsArray.push("habarovsk");
+        userLoginsArray.push("habrovsk");
         shops["Habarovsk"] = Shop(
             "Habarovsk",
             0x602E85A431e7cFB8489aFE0FF40EDa6C2B968afD,
+            emptyCashiers,
             true
         );
         shopCitites.push("Habarovsk");
@@ -820,6 +822,7 @@ contract ShopManager {
         users[0x2641D38Ed882F3E2Ea5F45f922Cded9D72ad09f7] = User(
             "bank",
             "Bank",
+            pwHash,
             secretHash,
             Role.BANK,
             Role.BANK,
@@ -834,6 +837,7 @@ contract ShopManager {
         users[0x8a3e473eeDab5Ff476A4d9E2EeEE289d1feBC7b3] = User(
             "goldfish",
             "Gold Fish",
+            pwHash,
             secretHash,
             Role.PROVIDER,
             Role.PROVIDER,
@@ -848,6 +852,7 @@ contract ShopManager {
         users[0xBC03ee8CDE310F36F2a6f04C9965Caeb11bA315a] = User(
             "admin",
             "Ivanov Ivan Ivanovich",
+            pwHash,
             secretHash,
             Role.ADMIN,
             Role.ADMIN,
@@ -862,6 +867,7 @@ contract ShopManager {
         users[0xDD28c05343B9D59F922202918C0f8c4802Be312f] = User(
             "semen",
             "Semenov Semen Semenovich",
+            pwHash,
             secretHash,
             Role.CASHIER,
             Role.CASHIER,
@@ -876,6 +882,7 @@ contract ShopManager {
         users[0xB7e3fFc2f94cE0a3ccFc599270d8023d8Ab9cac6] = User(
             "petr",
             "Petrov Petr Petrovich",
+            pwHash,
             secretHash,
             Role.BUYER,
             Role.BUYER,

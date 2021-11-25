@@ -15,6 +15,18 @@ class Review extends BaseEntity {
     return !this.data.exists;
   }
 
+  getContent() {
+    return this.data.content;
+  }
+
+  getParent() {
+    return this.web3.reviews.getReview(this.data.answer);
+  }
+
+  getAnswers() {
+    return Promise.all(this.data.answers.map(this.web3.reviews.getReview));
+  }
+
   async _initData() {
     this.data = await this.contract.methods.getReview(this.id).call();
   }
