@@ -268,15 +268,16 @@ contract ShopManager {
     // Подтвердить запрос на смену роли
     function approveElevationRequest(address requestAuthor, bool accept) public onlyAdmin {
         ElevateRequest memory elevReq = elevReqs[requestAuthor];
-        if(!accept) {
-            elevReqs[requestAuthor].exists = false;
-            return;
-        }
 
-        require(
-            elevReq.exists,
-            "This user have not sent any elevation requests!"
-        );
+        elevReqs[requestAuthor].exists = false;
+        if(!accept) return;
+
+        for(uint i = 0; i < elevReqsArray.length; i+=1) {
+            if(elevReqsArray[i] == requestAuthor) {
+                delete elevReqsArray[i];
+                break;
+            }
+        }
 
         this.changeRole(requestAuthor, elevReq.role, elevReq.shop, true);
     }
