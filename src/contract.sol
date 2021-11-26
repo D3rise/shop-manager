@@ -22,7 +22,6 @@ contract ShopManager {
     struct User {
         string login;
         string fullName;
-        bytes32 pwHash;
         bytes32 secretHash;
         Role maxRole;
         Role role; // 5 - администратор, 4 - банк, 3 - магазин, 2 - поставщик, 1 - продавец, 0 - покупатель
@@ -134,14 +133,13 @@ contract ShopManager {
     // Функция входа в аккаунт
     function authenticateUser(
         string memory username,
-        bytes32 pwHash,
-        bytes32 secretHash
+        string memory secret
     ) public view returns (bool success) {
         User memory user = users[userLogins[username]];
 
         require(user.exists, "User does not exist");
         require(
-            pwHash == user.pwHash && secretHash == user.secretHash,
+            keccak256(abi.encodePacked(secret)) == user.secretHash,
             "Wrong password or secret"
         );
 
@@ -153,7 +151,6 @@ contract ShopManager {
         address addr,
         string memory username,
         string memory fullName,
-        bytes32 pwHash,
         bytes32 secretHash
     ) public {
         require(
@@ -168,7 +165,6 @@ contract ShopManager {
         users[addr] = User(
             username,
             fullName,
-            pwHash,
             secretHash,
             Role.BUYER,
             Role.BUYER,
@@ -270,8 +266,12 @@ contract ShopManager {
     }
 
     // Подтвердить запрос на смену роли
-    function approveElevationRequest(address requestAuthor) public onlyAdmin {
+    function approveElevationRequest(address requestAuthor, bool accept) public onlyAdmin {
         ElevateRequest memory elevReq = elevReqs[requestAuthor];
+        if(!accept) {
+            elevReqs[requestAuthor].exists = false;
+            return;
+        }
 
         require(
             elevReq.exists,
@@ -613,7 +613,6 @@ contract ShopManager {
     constructor() {
         uint32[] memory emptyReviews;
         address[] memory emptyCashiers;
-        bytes32 pwHash = keccak256(abi.encodePacked("123"));
         bytes32 secretHash = keccak256(abi.encodePacked("12345"));
 
         /// Магазины
@@ -621,7 +620,6 @@ contract ShopManager {
         users[0x45C16acB0b0a616994c5dbAc60C05E4453029093] = User(
             "dmitrov",
             "Dmitrov Shop",
-            pwHash,
             secretHash,
             Role.SHOP,
             Role.SHOP,
@@ -643,7 +641,6 @@ contract ShopManager {
         users[0xEd637709F4EDaC6A5008FB7405794e753A1Ead90] = User(
             "kaluga",
             "Kaluga Shop",
-            pwHash,
             secretHash,
             Role.SHOP,
             Role.SHOP,
@@ -665,7 +662,6 @@ contract ShopManager {
         users[0x26280BC071E734EbbFBBa9EEeF0a7c2FaF1Ba4A5] = User(
             "moscow",
             "Moscow Shop",
-            pwHash,
             secretHash,
             Role.SHOP,
             Role.SHOP,
@@ -687,7 +683,6 @@ contract ShopManager {
         users[0xf3a7531B5991AeDeeAB93B43300Ea2be0f26DEd9] = User(
             "ryazan",
             "Ryazan Shop",
-            pwHash,
             secretHash,
             Role.SHOP,
             Role.SHOP,
@@ -709,7 +704,6 @@ contract ShopManager {
         users[0x45483719e57a7b10C73e842aABf9B009D1fe2E32] = User(
             "samara",
             "Samara Shop",
-            pwHash,
             secretHash,
             Role.SHOP,
             Role.SHOP,
@@ -731,7 +725,6 @@ contract ShopManager {
         users[0x1567f49dd576775d225D9C987880deE8e2e0e3DA] = User(
             "saint-petersburg",
             "Saint Petersburg Shop",
-            pwHash,
             secretHash,
             Role.SHOP,
             Role.SHOP,
@@ -755,7 +748,6 @@ contract ShopManager {
         users[0xA35cD8F38607cE823Ee307FfAF57F859762AecDc] = User(
             "taganrog",
             "Taganrog Shop",
-            pwHash,
             secretHash,
             Role.SHOP,
             Role.SHOP,
@@ -777,7 +769,6 @@ contract ShopManager {
         users[0x6a052A062A54344363b67BaD3B3FAfD6220Ac333] = User(
             "tomsk",
             "Tomsk Shop",
-            pwHash,
             secretHash,
             Role.SHOP,
             Role.SHOP,
@@ -799,7 +790,6 @@ contract ShopManager {
         users[0x602E85A431e7cFB8489aFE0FF40EDa6C2B968afD] = User(
             "habarovsk",
             "Habarovsk Shop",
-            pwHash,
             secretHash,
             Role.SHOP,
             Role.SHOP,
@@ -822,7 +812,6 @@ contract ShopManager {
         users[0x2641D38Ed882F3E2Ea5F45f922Cded9D72ad09f7] = User(
             "bank",
             "Bank",
-            pwHash,
             secretHash,
             Role.BANK,
             Role.BANK,
@@ -837,7 +826,6 @@ contract ShopManager {
         users[0x8a3e473eeDab5Ff476A4d9E2EeEE289d1feBC7b3] = User(
             "goldfish",
             "Gold Fish",
-            pwHash,
             secretHash,
             Role.PROVIDER,
             Role.PROVIDER,
@@ -852,7 +840,6 @@ contract ShopManager {
         users[0xBC03ee8CDE310F36F2a6f04C9965Caeb11bA315a] = User(
             "admin",
             "Ivanov Ivan Ivanovich",
-            pwHash,
             secretHash,
             Role.ADMIN,
             Role.ADMIN,
@@ -867,7 +854,6 @@ contract ShopManager {
         users[0xDD28c05343B9D59F922202918C0f8c4802Be312f] = User(
             "semen",
             "Semenov Semen Semenovich",
-            pwHash,
             secretHash,
             Role.CASHIER,
             Role.CASHIER,
@@ -882,7 +868,6 @@ contract ShopManager {
         users[0xB7e3fFc2f94cE0a3ccFc599270d8023d8Ab9cac6] = User(
             "petr",
             "Petrov Petr Petrovich",
-            pwHash,
             secretHash,
             Role.BUYER,
             Role.BUYER,

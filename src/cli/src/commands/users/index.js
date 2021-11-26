@@ -3,7 +3,7 @@ const fs = require("fs");
 const login = () => {
   return {
     args: 3,
-    func: async ([username, password, secret]) => {
+    func: async (username, password, secret) => {
       const address = await api.authenticate(username, password, secret);
       if (address) {
         writeUserData({ username, password, secret, address });
@@ -17,7 +17,7 @@ const login = () => {
 const signUp = () => {
   return {
     args: 4,
-    func: async ([username, fullName, password, secret]) => {
+    func: async (username, fullName, password, secret) => {
       const address = await api.users.addUser(
         username,
         fullName,
@@ -34,7 +34,7 @@ const signUp = () => {
 const showUser = () => {
   return {
     args: 0,
-    func: async ([username]) => {
+    func: async (username) => {
       let address;
 
       if (!username && userData.address) address = userData.address;

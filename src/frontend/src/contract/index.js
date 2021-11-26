@@ -1,578 +1,573 @@
 export const Abi = [
   {
-    inputs: [],
-    stateMutability: "nonpayable",
-    type: "constructor",
+    "inputs": [],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "address",
-        name: "requestAuthor",
-        type: "address",
+        "internalType": "address",
+        "name": "requestAuthor",
+        "type": "address"
       },
       {
-        internalType: "bool",
-        name: "accept",
-        type: "bool",
-      },
+        "internalType": "bool",
+        "name": "accept",
+        "type": "bool"
+      }
     ],
-    name: "approveElevationRequest",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    "name": "approveElevationRequest",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "string",
-        name: "shopCity",
-        type: "string",
-      },
-      {
-        internalType: "bool",
-        name: "accept",
-        type: "bool",
-      },
+        "internalType": "string",
+        "name": "shopCity",
+        "type": "string"
+      }
     ],
-    name: "approveMoneyRequest",
-    outputs: [],
-    stateMutability: "payable",
-    type: "function",
+    "name": "approveMoneyRequest",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "string",
-        name: "username",
-        type: "string",
+        "internalType": "string",
+        "name": "username",
+        "type": "string"
       },
       {
-        internalType: "bytes32",
-        name: "secretHash",
-        type: "bytes32",
-      },
+        "internalType": "string",
+        "name": "secret",
+        "type": "string"
+      }
     ],
-    name: "authenticateUser",
-    outputs: [
+    "name": "authenticateUser",
+    "outputs": [
       {
-        internalType: "bool",
-        name: "success",
-        type: "bool",
-      },
+        "internalType": "bool",
+        "name": "success",
+        "type": "bool"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [],
-    name: "cancelElevationRequest",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    "inputs": [],
+    "name": "cancelElevationRequest",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    inputs: [],
-    name: "cancelMoneyRequest",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    "inputs": [],
+    "name": "cancelMoneyRequest",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "address",
-        name: "user",
-        type: "address",
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
       },
       {
-        internalType: "enum ShopManager.Role",
-        name: "requiredRole",
-        type: "uint8",
+        "internalType": "enum ShopManager.Role",
+        "name": "requiredRole",
+        "type": "uint8"
       },
       {
-        internalType: "string",
-        name: "requiredShop",
-        type: "string",
+        "internalType": "string",
+        "name": "requiredShop",
+        "type": "string"
       },
       {
-        internalType: "bool",
-        name: "maxRole",
-        type: "bool",
-      },
+        "internalType": "bool",
+        "name": "maxRole",
+        "type": "bool"
+      }
     ],
-    name: "changeRole",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    "name": "changeRole",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "string",
-        name: "city",
-        type: "string",
-      },
+        "internalType": "string",
+        "name": "city",
+        "type": "string"
+      }
     ],
-    name: "deleteShop",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    "name": "deleteShop",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "address",
-        name: "sender",
-        type: "address",
-      },
+        "internalType": "address",
+        "name": "sender",
+        "type": "address"
+      }
     ],
-    name: "getElevateRequest",
-    outputs: [
+    "name": "getElevateRequest",
+    "outputs": [
       {
-        internalType: "bool",
-        name: "exists",
-        type: "bool",
+        "internalType": "bool",
+        "name": "exists",
+        "type": "bool"
       },
       {
-        internalType: "enum ShopManager.Role",
-        name: "requiredRole",
-        type: "uint8",
+        "internalType": "enum ShopManager.Role",
+        "name": "requiredRole",
+        "type": "uint8"
       },
       {
-        internalType: "string",
-        name: "requiredShop",
-        type: "string",
-      },
+        "internalType": "string",
+        "name": "requiredShop",
+        "type": "string"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [],
-    name: "getElevateRequests",
-    outputs: [
+    "inputs": [],
+    "name": "getElevateRequests",
+    "outputs": [
       {
-        internalType: "address[]",
-        name: "requesters",
-        type: "address[]",
-      },
+        "internalType": "address[]",
+        "name": "requesters",
+        "type": "address[]"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "string",
-        name: "shopCity",
-        type: "string",
-      },
+        "internalType": "string",
+        "name": "shopCity",
+        "type": "string"
+      }
     ],
-    name: "getMoneyRequest",
-    outputs: [
+    "name": "getMoneyRequest",
+    "outputs": [
       {
-        internalType: "bool",
-        name: "exists",
-        type: "bool",
+        "internalType": "bool",
+        "name": "exists",
+        "type": "bool"
       },
       {
-        internalType: "address",
-        name: "sender",
-        type: "address",
+        "internalType": "address",
+        "name": "sender",
+        "type": "address"
       },
       {
-        internalType: "uint256",
-        name: "count",
-        type: "uint256",
-      },
+        "internalType": "uint256",
+        "name": "count",
+        "type": "uint256"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [],
-    name: "getMoneyRequests",
-    outputs: [
+    "inputs": [],
+    "name": "getMoneyRequests",
+    "outputs": [
       {
-        internalType: "string[]",
-        name: "moneyRequesters",
-        type: "string[]",
-      },
+        "internalType": "string[]",
+        "name": "moneyRequesters",
+        "type": "string[]"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "uint32",
-        name: "reviewId",
-        type: "uint32",
-      },
+        "internalType": "uint32",
+        "name": "reviewId",
+        "type": "uint32"
+      }
     ],
-    name: "getReview",
-    outputs: [
+    "name": "getReview",
+    "outputs": [
       {
-        internalType: "bool",
-        name: "exists",
-        type: "bool",
+        "internalType": "bool",
+        "name": "exists",
+        "type": "bool"
       },
       {
-        internalType: "address",
-        name: "sender",
-        type: "address",
+        "internalType": "address",
+        "name": "sender",
+        "type": "address"
       },
       {
-        internalType: "string",
-        name: "shop",
-        type: "string",
+        "internalType": "string",
+        "name": "shop",
+        "type": "string"
       },
       {
-        internalType: "string",
-        name: "content",
-        type: "string",
+        "internalType": "string",
+        "name": "content",
+        "type": "string"
       },
       {
-        internalType: "uint32",
-        name: "answer",
-        type: "uint32",
+        "internalType": "uint32",
+        "name": "answer",
+        "type": "uint32"
       },
       {
-        internalType: "uint32[]",
-        name: "answers",
-        type: "uint32[]",
+        "internalType": "uint32[]",
+        "name": "answers",
+        "type": "uint32[]"
       },
       {
-        internalType: "uint8",
-        name: "rate",
-        type: "uint8",
+        "internalType": "uint8",
+        "name": "rate",
+        "type": "uint8"
       },
       {
-        internalType: "address[]",
-        name: "likes",
-        type: "address[]",
+        "internalType": "address[]",
+        "name": "likes",
+        "type": "address[]"
       },
       {
-        internalType: "address[]",
-        name: "dislikes",
-        type: "address[]",
-      },
+        "internalType": "address[]",
+        "name": "dislikes",
+        "type": "address[]"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "string",
-        name: "city",
-        type: "string",
-      },
+        "internalType": "string",
+        "name": "city",
+        "type": "string"
+      }
     ],
-    name: "getShopByCity",
-    outputs: [
+    "name": "getShopByCity",
+    "outputs": [
       {
-        internalType: "bool",
-        name: "exists",
-        type: "bool",
+        "internalType": "bool",
+        "name": "exists",
+        "type": "bool"
       },
       {
-        internalType: "string",
-        name: "shopCity",
-        type: "string",
+        "internalType": "string",
+        "name": "shopCity",
+        "type": "string"
       },
       {
-        internalType: "address",
-        name: "shopOwner",
-        type: "address",
-      },
+        "internalType": "address",
+        "name": "shopOwner",
+        "type": "address"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "address",
-        name: "owner",
-        type: "address",
-      },
+        "internalType": "address",
+        "name": "owner",
+        "type": "address"
+      }
     ],
-    name: "getShopByOwnerAddress",
-    outputs: [
+    "name": "getShopByOwnerAddress",
+    "outputs": [
       {
-        internalType: "bool",
-        name: "exists",
-        type: "bool",
+        "internalType": "bool",
+        "name": "exists",
+        "type": "bool"
       },
       {
-        internalType: "string",
-        name: "shopCity",
-        type: "string",
+        "internalType": "string",
+        "name": "shopCity",
+        "type": "string"
       },
       {
-        internalType: "address",
-        name: "shopOwner",
-        type: "address",
-      },
+        "internalType": "address",
+        "name": "shopOwner",
+        "type": "address"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "string",
-        name: "city",
-        type: "string",
-      },
+        "internalType": "string",
+        "name": "city",
+        "type": "string"
+      }
     ],
-    name: "getShopReviews",
-    outputs: [
+    "name": "getShopReviews",
+    "outputs": [
       {
-        internalType: "uint32[]",
-        name: "reviewIds",
-        type: "uint32[]",
-      },
+        "internalType": "uint32[]",
+        "name": "reviewIds",
+        "type": "uint32[]"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [],
-    name: "getShops",
-    outputs: [
+    "inputs": [],
+    "name": "getShops",
+    "outputs": [
       {
-        internalType: "string[]",
-        name: "shopCities",
-        type: "string[]",
-      },
+        "internalType": "string[]",
+        "name": "shopCities",
+        "type": "string[]"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "address",
-        name: "addr",
-        type: "address",
-      },
+        "internalType": "address",
+        "name": "addr",
+        "type": "address"
+      }
     ],
-    name: "getUser",
-    outputs: [
+    "name": "getUser",
+    "outputs": [
       {
-        internalType: "bool",
-        name: "exists",
-        type: "bool",
+        "internalType": "bool",
+        "name": "exists",
+        "type": "bool"
       },
       {
-        internalType: "string",
-        name: "username",
-        type: "string",
+        "internalType": "string",
+        "name": "username",
+        "type": "string"
       },
       {
-        internalType: "string",
-        name: "fullName",
-        type: "string",
+        "internalType": "string",
+        "name": "fullName",
+        "type": "string"
       },
       {
-        internalType: "enum ShopManager.Role",
-        name: "role",
-        type: "uint8",
+        "internalType": "enum ShopManager.Role",
+        "name": "role",
+        "type": "uint8"
       },
       {
-        internalType: "enum ShopManager.Role",
-        name: "maxRole",
-        type: "uint8",
+        "internalType": "enum ShopManager.Role",
+        "name": "maxRole",
+        "type": "uint8"
       },
       {
-        internalType: "string",
-        name: "shop",
-        type: "string",
-      },
+        "internalType": "string",
+        "name": "shop",
+        "type": "string"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "string",
-        name: "login",
-        type: "string",
-      },
+        "internalType": "string",
+        "name": "login",
+        "type": "string"
+      }
     ],
-    name: "getUserAddress",
-    outputs: [
+    "name": "getUserAddress",
+    "outputs": [
       {
-        internalType: "address",
-        name: "userAddress",
-        type: "address",
-      },
+        "internalType": "address",
+        "name": "userAddress",
+        "type": "address"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [],
-    name: "getUserLogins",
-    outputs: [
+    "inputs": [],
+    "name": "getUserLogins",
+    "outputs": [
       {
-        internalType: "string[]",
-        name: "usernames",
-        type: "string[]",
-      },
+        "internalType": "string[]",
+        "name": "usernames",
+        "type": "string[]"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "address",
-        name: "userAddress",
-        type: "address",
-      },
+        "internalType": "address",
+        "name": "userAddress",
+        "type": "address"
+      }
     ],
-    name: "getUserReviews",
-    outputs: [
+    "name": "getUserReviews",
+    "outputs": [
       {
-        internalType: "bool",
-        name: "exists",
-        type: "bool",
+        "internalType": "bool",
+        "name": "exists",
+        "type": "bool"
       },
       {
-        internalType: "uint32[]",
-        name: "reviewIds",
-        type: "uint32[]",
-      },
+        "internalType": "uint32[]",
+        "name": "reviewIds",
+        "type": "uint32[]"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "enum ShopManager.Role",
-        name: "requiredRole",
-        type: "uint8",
+        "internalType": "enum ShopManager.Role",
+        "name": "requiredRole",
+        "type": "uint8"
       },
       {
-        internalType: "string",
-        name: "requiredShop",
-        type: "string",
-      },
+        "internalType": "string",
+        "name": "requiredShop",
+        "type": "string"
+      }
     ],
-    name: "newElevateRequest",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    "name": "newElevateRequest",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "uint256",
-        name: "requiredSum",
-        type: "uint256",
-      },
+        "internalType": "uint256",
+        "name": "requiredSum",
+        "type": "uint256"
+      }
     ],
-    name: "newMoneyRequest",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    "name": "newMoneyRequest",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "string",
-        name: "shop",
-        type: "string",
+        "internalType": "string",
+        "name": "shop",
+        "type": "string"
       },
       {
-        internalType: "string",
-        name: "content",
-        type: "string",
+        "internalType": "string",
+        "name": "content",
+        "type": "string"
       },
       {
-        internalType: "uint8",
-        name: "rate",
-        type: "uint8",
+        "internalType": "uint8",
+        "name": "rate",
+        "type": "uint8"
       },
       {
-        internalType: "uint32",
-        name: "answer",
-        type: "uint32",
-      },
+        "internalType": "uint32",
+        "name": "answer",
+        "type": "uint32"
+      }
     ],
-    name: "newReview",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    "name": "newReview",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "string",
-        name: "city",
-        type: "string",
+        "internalType": "string",
+        "name": "city",
+        "type": "string"
       },
       {
-        internalType: "address",
-        name: "owner",
-        type: "address",
-      },
+        "internalType": "address",
+        "name": "owner",
+        "type": "address"
+      }
     ],
-    name: "newShop",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    "name": "newShop",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "address",
-        name: "addr",
-        type: "address",
+        "internalType": "address",
+        "name": "addr",
+        "type": "address"
       },
       {
-        internalType: "string",
-        name: "username",
-        type: "string",
+        "internalType": "string",
+        "name": "username",
+        "type": "string"
       },
       {
-        internalType: "string",
-        name: "fullName",
-        type: "string",
+        "internalType": "string",
+        "name": "fullName",
+        "type": "string"
       },
       {
-        internalType: "bytes32",
-        name: "secretHash",
-        type: "bytes32",
-      },
+        "internalType": "bytes32",
+        "name": "secretHash",
+        "type": "bytes32"
+      }
     ],
-    name: "newUser",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    "name": "newUser",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "uint32",
-        name: "review",
-        type: "uint32",
+        "internalType": "uint32",
+        "name": "review",
+        "type": "uint32"
       },
       {
-        internalType: "bool",
-        name: "positive",
-        type: "bool",
-      },
+        "internalType": "bool",
+        "name": "positive",
+        "type": "bool"
+      }
     ],
-    name: "rateReview",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-];
+    "name": "rateReview",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]

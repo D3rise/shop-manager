@@ -36,7 +36,7 @@ export const Login = () => {
 
       if (authenticated) {
         await contract.methods
-          .authenticateUser(username, web3.utils.sha3(secret))
+          .authenticateUser(username, secret)
           .call();
 
         const { role, maxRole } = await contract.methods

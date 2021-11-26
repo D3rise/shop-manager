@@ -38,9 +38,9 @@ module.exports = [
         type: "string",
       },
       {
-        internalType: "string",
-        name: "secret",
-        type: "string",
+        internalType: "bytes32",
+        name: "secretHash",
+        type: "bytes32",
       },
     ],
     name: "authenticateUser",
@@ -535,11 +535,6 @@ module.exports = [
         internalType: "string",
         name: "fullName",
         type: "string",
-      },
-      {
-        internalType: "bytes32",
-        name: "pwHash",
-        type: "bytes32",
       },
       {
         internalType: "bytes32",

@@ -7,20 +7,8 @@ class API {
     this.__initClasses();
   }
 
-  async authenticate(username, password, secret) {
-    const address = await this.contract.methods.getUserAddress(username).call();
-    const { web3 } = this.web3;
-
-    await web3.eth.personal.unlockAccount(address, password);
-
-    const success = await this.contract.methods
-      .authenticateUser(username, secret)
-      .call();
-
-    if (success) {
-      await this.web3.changeUser(address);
-      return address;
-    }
+  authenticate(username, password, secret) {
+    return this.users.authenticateUser(username, password, secret);
   }
 
   __initClasses() {

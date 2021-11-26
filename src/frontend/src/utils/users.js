@@ -11,16 +11,13 @@ export const addUser = async (
     .call();
   if (exists) throw new Error("User exists!");
 
-  console.log(password);
-  console.log(secret);
-
   const address = await web3.eth.personal.newAccount(password);
   await web3.eth.personal.unlockAccount(address, password, 0);
 
   await transferFromReserve(
     web3,
     address,
-    web3.utils.toWei("10000000", "gwei")
+    web3.utils.toWei("0.1", "ether")
   );
 
   await contract.methods

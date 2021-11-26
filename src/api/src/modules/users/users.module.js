@@ -9,18 +9,36 @@ class UsersModule extends BaseModule {
     this.__initClasses();
   }
 
+  async authenticateUser(username, password, secret) {
+    const address = await this.contract.methods.getUserAddress(username).call();
+    const { web3 } = this.web3;
+
+    await web3.eth.personal.unlockAccount(address, password);
+
+    const success = await this.contract.methods
+      .authenticateUser(username, secret)
+      .call();
+
+    if (success) {
+      await this.web3.changeUser(address);
+      return address;
+    }
+  }
+
   async addUser(username, fullName, password, secret) {
     const actualUsername = username.toLowerCase();
     const existingAddress = await this.getUserAddress(actualUsername);
-    if (existingAddress) {
+    if (!this.web3.utils.toBN(existingAddress).isZero()) {
       throw new Error("Such user already exists!");
     }
 
     const secretHash = this.web3.utils.sha3(secret);
     const address = await this.web3.web3.eth.personal.newAccount(password);
+    await this.web3.web3.eth.personal.unlockAccount(address, password);
+
     await this.web3.utils.transferFromReserveAccount(
       address,
-      this.web3.utils.toWei("100", "gwei")
+      this.web3.utils.toWei("0.1", "ether")
     );
 
     await this.web3.contract.methods

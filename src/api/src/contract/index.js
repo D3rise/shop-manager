@@ -21,12 +21,12 @@ class Web3Contract {
     this.user = await new User(this, address);
   }
 
-  async __initClasses() {
+  __initClasses() {
     this.users = new UsersModule(this);
     this.shops = new ShopsModule(this);
     this.reviews = new ReviewsModule(this);
     this.bank = new BankModule(this);
-    this.utils = await new UtilsModule(this);
+    this.utils = new UtilsModule(this);
   }
 
   __initUser() {

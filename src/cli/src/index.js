@@ -20,6 +20,7 @@ async function main(command, args) {
     console.log(
       `Insufficient amount of arguments! Required: ${commands[command].args}, given: ${args.length}`
     );
+    process.exit(1);
   }
 
   try {
@@ -29,23 +30,22 @@ async function main(command, args) {
     global.userData = {};
   }
 
-  if (userData.username && command !== "login") {
-    await commands.login.func([
+  if (userData.username && command !== "login" && command !== "signup") {
+    await commands.login.func(
       userData.username,
       userData.password,
-      userData.secret,
-    ]);
+      userData.secret
+    );
   }
 
-  try {
-    commands[command].func(args);
-  } catch (e) {
-    console.log("Unexpected error: " + e.message);
-    process.exit(1);
-  }
+  commands[command].func(...args);
 }
 
 if (require.main === module) {
   const [command, ...args] = process.argv.slice(2);
-  main(command, args);
+
+  main(command, args).catch((e) => {
+    console.log("\nUnexpected error:\n" + e.message);
+    process.exit(1);
+  });
 }

@@ -1,7 +1,7 @@
 const showShops = () => {
   return {
     args: 0,
-    func: async () => {
+    async func() {
       const shops = await api.shops.getShopCities();
       console.log("Shops:");
       shops.map((shop, index) => {
@@ -14,7 +14,7 @@ const showShops = () => {
 const showShop = () => {
   return {
     args: 1,
-    func: async ([city]) => {
+    async func(city) {
       const shop = await api.shops.getShop(city);
       const { shopOwner: ownerAddress } = shop.data;
       const cashiers = await shop.getCashiers();
@@ -29,6 +29,13 @@ const showShop = () => {
           .join("\n\t\t")}\n\tReviews:\n\t\t${reviews.map((review) => ``)}`
       );
     },
+  };
+};
+
+const newShop = () => {
+  return {
+    args: 3,
+    func() {},
   };
 };
 
