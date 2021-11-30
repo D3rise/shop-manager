@@ -7,6 +7,8 @@ TODO:
 2. operateCashRequest
 3. getSelfElevateRequests
 4. getSelfCashRequests
+5. getElevateRequest
+6. getCashRequest
 */
 
 /*
@@ -30,6 +32,8 @@ Methods:
 */
 
 contract ShopManager {
+    address payable constant bank = payable(address(0));
+
     enum Role {
         BUYER,
         CASHIER,
@@ -91,13 +95,14 @@ contract ShopManager {
     struct CashRequest {
         bool exists;
         string shop;
+        address payable sender;
         uint256 cash;
     }
     mapping(uint32 => CashRequest) cashRequests;
     uint32[] cashRequestIds;
 
-    modifier onlyAdmin() {
-        require(users[msg.sender].currentRole == Role.ADMIN, "Not permitted");
+    modifier requireRole(Role role) {
+        require(users[msg.sender].currentRole == role, "Not permitted");
         _;
     }
 
@@ -176,7 +181,7 @@ contract ShopManager {
         address addr,
         string memory city,
         bytes32 secretHash
-    ) public onlyAdmin {
+    ) public requireRole(Role.ADMIN) {
         newUser(addr, city, concatStrings(city, "Shop"), secretHash);
 
         users[addr].maxRole = Role.SHOP;
@@ -212,6 +217,11 @@ contract ShopManager {
         );
     }
 
+    /*
+    function getShopCityByOwner(address ownerAddr) public view returns (bool, string memory) {
+        return (users[ownerAddr].role == Role.SHOP, users[ownerAddr].shop);
+    }
+*/
     function newReview(
         string memory shop,
         string memory content,
@@ -317,23 +327,49 @@ contract ShopManager {
         uint32 id = uint32(elevRequestIds.length);
         elevRequestIds.push(id);
         elevRequests[id] = ElevateRequest(true, msg.sender, shop, role);
+        users[msg.sender].elevRequests.push(id);
     }
 
     function getElevateRequests()
         public
         view
-        onlyAdmin
+        requireRole(Role.ADMIN)
         returns (uint32[] memory)
     {
         return elevRequestIds;
     }
 
-    function operateElevateRequest(uint32 id, bool accept) public onlyAdmin {
+    function operateElevateRequest(uint32 id, bool accept)
+        public
+        requireRole(Role.ADMIN)
+    {
         ElevateRequest memory req = elevRequests[id];
         if (accept) {
             changeRole(req.author, req.role, req.shop, true);
         }
         elevRequests[id].exists = false;
+    }
+
+    function newCashRequest(uint256 value) public requireRole(Role.SHOP) {
+        uint32 id = uint32(cashRequestIds.length);
+
+        cashRequestIds.push(id);
+        cashRequests[id] = CashRequest(
+            true,
+            users[msg.sender].shop,
+            payable(msg.sender),
+            value
+        );
+        shops[users[msg.sender].shop].cashRequests.push(id);
+    }
+
+    function getSelfCashRequests()
+        public
+        view
+        requireRole(Role.SHOP)
+        returns (uint32[] memory)
+    {
+        return shops[users[msg.sender].shop].cashRequests;
     }
 
     function concatStrings(string memory first, string memory second)
