@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="10a55205-6e39-41dd-89ae-a16c77d98567" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/ws-ethereum.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-09T20-32-04.321226100Z--2641d38ed882f3e2ea5f45f922cded9d72ad09f7" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-09T20-32-28.728382900Z--45c16acb0b0a616994c5dbac60c05e4453029093" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-09T20-32-37.072276100Z--ed637709f4edac6a5008fb7405794e753a1ead90" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-09T20-32-46.080897200Z--26280bc071e734ebbfbba9eeef0a7c2faf1ba4a5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-09T20-32-52.897745800Z--f3a7531b5991aedeeab93b43300ea2be0f26ded9" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-09T20-32-57.937382500Z--45483719e57a7b10c73e842aabf9b009d1fe2e32" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-09T20-33-02.792934500Z--1567f49dd576775d225d9c987880dee8e2e0e3da" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-09T20-33-08.241270500Z--a35cd8f38607ce823ee307ffaf57f859762aecdc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-09T20-33-15.057305200Z--6a052a062a54344363b67bad3b3fafd6220ac333" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-09T20-33-20.304467800Z--602e85a431e7cfb8489afe0ff40eda6c2b968afd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-09T20-33-25.225448700Z--8a3e473eedab5ff476a4d9e2eeee289d1febc7b3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-09T20-33-30.001411000Z--bc03ee8cde310f36f2a6f04c9965caeb11ba315a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-09T20-33-35.105503100Z--dd28c05343b9d59f922202918c0f8c4802be312f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-09T20-33-39.817009600Z--b7e3ffc2f94ce0a3ccfc599270d8023d8ab9cac6" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-09T20-33-44.408884200Z--4649a248f4c06e90c9c86ad6068c1c7237206060" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-09T20-33-49.096465200Z--82186f7bbfcf6a6fa8041a4c6f6693ec9d5852f3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-09T20-33-53.736703000Z--1256eacfc61c088dc2845414d7f1f6c8de3d80bf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-09T20-33-58.488954600Z--f2cd6298dcd3a3d0c44a3b436035df0491cbc788" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-09T20-34-03.600622000Z--0cca69f5740d500b0f49a451ec2b34db1b71a31b" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-09T20-34-08.081167600Z--c802a78521185497b08b27b2af3ea5ce84b1cd66" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-12T09-20-56.184517300Z--a6e16aaed988cd9d246282dec20ec574db5f82a6" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-12T09-21-17.056644800Z--5f3b121a42de303134c0d9dcbefedfe9fd78f699" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-12T09-40-29.680363400Z--10277c4d35dfd00fafe464f796488a6fc8a60318" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-12T09-49-29.272298700Z--6da944bf399ed01bf00c4dd18cd93980a29e9c7a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-12T09-52-02.653062400Z--191a1f76b87aac7cd98a129743bbd734271f50fa" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-12T09-52-16.482078600Z--4ae016a471720e68c2274e2ab7f9a299a0ae4c4a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-12T09-53-11.136770100Z--146c996cb1a2d8262e8e31197100f899ca2b0d36" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-12T09-53-29.030994200Z--ef191ff2f573dd68ad5532d91a6dd22804c0150c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-12T09-54-56.695313400Z--d820caf6211c8156442bed34302d845b0d3cf26a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-12T09-55-11.752447800Z--1c9ce1a60365abd5b79b9dd7fb8d7765b58aadf6" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-12T09-55-12.967622000Z--b7c6c1472786708136fde33528e8fc8b66721deb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-12T09-55-13.383369200Z--6ef4279b8cd9bb49c9b6d0defca53f3f60fe791b" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-12T09-55-13.567105700Z--5c5c73f3f445af8e2915ea4601f2ff8b317cda89" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-12T09-55-41.423436500Z--e60c59f55359310713dee412faf0f111a3064314" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-12T09-59-02.287277400Z--67e7b540a58f243cd7eceaebb4192b481a6669a0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-15T07-29-28.808451800Z--bec33f4bacb64944a796d120ef32ecc6c8ab9e60" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-15T07-39-26.638851400Z--41013299b718b5d6100b03b8d94f3c42e4f2e09d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-15T07-39-53.510271500Z--612c87ffffe2375823dd651e9a59c05c9f1e3d7e" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-15T07-40-54.058885100Z--c927e1548091fe7b2121e9ab8b0068ebe770646d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-15T07-42-32.410483100Z--0090241bb861a0b718f6863bf19ccd3d3ead0879" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-15T07-43-40.154576100Z--95a78a4968cfbac4a5e919112b6025618f254b48" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-15T07-45-27.859197600Z--81519ba0351c538e2b7ac813cc08dfefa230e8a6" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-15T07-47-01.546778700Z--3bdf7c1e76fe596de73870c1c3891806cff6482c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-15T07-47-34.871265300Z--26b294ec8f12952f2388807416e72c3392837e2d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-15T07-48-35.234226000Z--ed8dc0f437d379b399486c2dfc55d5ebf7617057" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-15T07-49-47.990284600Z--102e86b914476cf084675e3ce0ac4cf6c7d720aa" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-15T07-51-10.181688700Z--4c1ea9a75af3fb61a61a14d25f4ce73d8ed5647d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-15T08-42-30.484431300Z--283f47ceafca8e63e7d4f51e4a25ed47053906d1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-15T08-44-00.782250000Z--2ea2a49894bd85e1e2de7e7b2b55a01df08749ea" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-15T10-10-46.158722200Z--85c97849c42043187e925a99dbcac36370bbde96" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-16T12-12-33.263611700Z--13e401a56bdf4cb984688bb1e297cd9adbb49414" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-16T12-14-23.775783000Z--56c3603d9a294aa1a1290a0d66c695c9ec749c76" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-16T12-15-42.093658000Z--c0abc5f5cd8f393cf239c61bdf4459756967ee3a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-16T12-17-48.571570100Z--c254926b35fe1b9c8a322032eb5223feabbf9df1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-16T12-18-45.555697100Z--58d3f7d0206eb9abfa9f78ca7d85a3d909cea01c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-18T01-02-21.194804600Z--28d472c6da35bd5dcd468c4a8538b0c030508598" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-18T01-04-28.082575600Z--aca78335ff6c019402d39dc9eae19732f6306fe3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-18T01-08-32.011239600Z--71fb75dd16ee7de49512367cc879cfad6f9a4f2c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-18T08-16-09.304972700Z--aecc90fa0a00edf9125f7a9fdc8608ae477400e9" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-18T08-21-24.448904200Z--5ab3d7627ce92d324853f8592e72ff0ecb70b86f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-18T08-22-24.489305700Z--c2121716815885648ffae0a842ae4e9aaca61b97" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-18T08-26-28.359483200Z--05ae76776102f3d555e8b72938398914cdeaa2ee" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-19T15-29-45.243817500Z--c0e4f17e5e3cf3b0047ae406b104b8c5a41d77b1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-19T18-16-54.815767900Z--6c23cb834741737a1ed6a49f956f58f2cfbf09e4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-19T18-21-42.930820000Z--9bf38d8d1bf443f98713763bf347a54e9bd22bdd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-20T06-38-17.559441400Z--4b5a6fb3f6be187acb6d4416010fd8da583e658c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-20T06-40-42.160603600Z--36a83277009cbb923796000c56dfe5c3f7d06298" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-20T06-45-35.224445200Z--994dce70137eda3ed242f65337b7383f66535cf0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-20T06-47-26.336114800Z--fc8be990c42eec86214a9255474c74351f52fae0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-26T12-46-58.127842000Z--3a1f942a13dc4d9f42afa77716096da2e3d73ef7" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-26T12-47-39.329120500Z--8d56f9e02446e8805babfa297208dc8eb9dc2f10" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-26T13-07-40.352548100Z--584ed3354001508034d62d5a4c1655c9c6b7745f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-26T13-09-58.935693700Z--6469173f44ed9d77c112938c8ad32f73a6393582" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-26T13-11-11.031500900Z--2ae75e4731288b65711e532d3400ba2f0094e83f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-26T13-17-20.103929900Z--61f2920d5293ed0323b399bf9a3f68b092ba675e" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-26T13-17-28.285184500Z--179989a6fe2bd940b15a543ab6c3a30133997741" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-26T13-20-52.734054500Z--68daf71a2105b469b6eef583918513368fa74f65" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-26T13-23-03.808269200Z--ea6c394f80fa9c990e9d3400a27cde5442769767" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-26T13-26-01.762154000Z--3838d39cb356db03fa4d204a7c79070a81c05773" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-26T13-27-13.610810400Z--c4f0dc69f1ced9256f91e893d8e59c19af2a6f23" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-26T13-28-20.381293200Z--0b22ff1d25fdd4b1a0407251cce7f7a128bc2319" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-26T13-29-47.001221100Z--cf8ec0d314b9967edaadcacef7c6bffdbcba528f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-26T13-31-37.781183700Z--9d9ea75ba6ac5e0e7bf093f8bc4f8c445c0d960d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-26T13-33-02.676959400Z--a681ede2599748619da221648d31d7c77c914857" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-26T16-20-27.130827800Z--f5fb3069a39c409e28a439d531572eba3e6f26a9" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-26T16-49-32.255136800Z--9d5ea837e58a3cf78e74dc917593178bbcc26fcf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/keystore/UTC--2021-11-26T17-28-17.394712300Z--47b84d33cc6a43595389a7029a4330ab0a99792f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/genesis.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/.eslintrc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/.idea/api.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/.idea/codeStyles/Project.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/.idea/jsLinters/eslint.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/.prettierignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/.prettierrc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/jest.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/src/api.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/src/constant/reserveAccount.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/src/constant/roles.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/src/contract/abi.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/src/contract/config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/src/contract/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/src/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/src/modules/bank/bank.module.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/src/modules/bank/moneyRequests/moneyRequests.module.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/src/modules/base/entity.base.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/src/modules/base/module.base.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/src/modules/reviews/review.class.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/src/modules/reviews/reviews.module.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/src/modules/shops/shop.class.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/src/modules/shops/shops.module.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/src/modules/users/roles/roles.module.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/src/modules/users/user.class.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/src/modules/users/users.module.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/src/modules/utils/utils.module.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/test/api.test.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/test/bank/moneyRequests/moneyRequests.test.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/test/reviews/reviews.test.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/test/shops/shops.test.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/test/users/users.test.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/yarn.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cli/.eslintrc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cli/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cli/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cli/.idea/cli.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cli/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cli/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cli/.idea/jsLibraryMappings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cli/.idea/jsLinters/eslint.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cli/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cli/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cli/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cli/src/commands/bank/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cli/src/commands/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cli/src/commands/reviews/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cli/src/commands/shops/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cli/src/commands/users/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cli/src/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cli/userdata.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cli/yarn.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/contract.sol" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/.env" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/.idea/frontend.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/public/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/public/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/public/logo192.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/public/logo512.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/public/manifest.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/public/robots.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/src/App.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/src/component/forms/addReview/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/src/component/forms/changeUserRole/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/src/component/forms/sendElevateRequest/elevate.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/src/component/forms/sendMoneyRequest/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/src/component/forms/shop/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/src/component/header/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/src/component/header/index.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/src/component/lists/elevateRequests/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/src/component/lists/moneyRequests/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/src/component/lists/shop/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/src/component/lists/shop/index.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/src/contract/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/src/hook/context.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/src/hook/localStorage.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/src/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/src/index.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/src/page/dashboard/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/src/page/home/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/src/page/login/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/src/page/logout/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/src/page/shop/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/src/page/shop/index.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/src/page/signup/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/src/utils/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/src/utils/requests.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/src/utils/roles.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/src/utils/shops.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/src/utils/users.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/yarn.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/start-blockchain.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/start-frontend.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/start.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/start.sh" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="21d1LKSIo25Tj2ov7QmMDxpn2O3" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="10a55205-6e39-41dd-89ae-a16c77d98567" name="Changes" comment="" />
+      <created>1638256092372</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1638256092372</updated>
+      <workItem from="1638256093575" duration="1287000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
