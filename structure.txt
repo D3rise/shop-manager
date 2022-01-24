@@ -1,0 +1,84 @@
+Структуры:
+User:
+    1. address - адрес в сети
+    2. login - логин
+    3. fullName - полное имя
+    4. maxRole - максимально доступная роль
+    5. currentRole - текущая роль
+    6. reviews - список ID оставленных отзывов
+    7. shop - название города в котором находится магазин, принадлежащий пользователю (для продавцов и магазинов)
+    8. pwHash - хеш пароля пользователя
+    9. exists - существует ли пользователь
+Shop:
+    1. name - название города в котором находится магазин
+    2. owner - адрес аккаунта владельца магазина
+    3. cashiers - массив адресов продавцов магазина
+    4. exists - существует ли магазин
+Review:
+    1. sender - адрес отправителя
+    2. shop - название магазина, которому оставлен отзыв
+    3. content - текст отзыва
+    4. rating - рейтинг отзыва
+    5. parent - родительский отзыв (-1 если корневой)
+    6. childs - дочерние отзывы
+    7. likes - адреса оставивших лайк
+    8. dislikes - адреса оставивших дизлайк
+    9. rate - оценка от пользователя от 1 до 10 (0 для дочерних отзывов)
+    10. exists - существует ли отзыв
+MoneyRequest:
+    1. sender - отправитель запроса (владелец магазина)
+    2. amount - требуемое количество денег
+    3. exists - существует ли запрос
+ElevateRequest:
+    1. sender - отправитель запроса на повышение
+    2. role - требуемая роль
+    3. shop - требуемый магазин (при подаче заявления на повышение до продавца)
+    4. exists - существует ли запрос
+
+mapping(address => User) users
+mapping(string => address) userLogins
+string[] userLoginsArray
+
+mapping(string => Shop) shops
+string[] shopCities
+
+mapping(int32 => Review) reviews
+int32[] reviewsArray = []
+
+mapping(address => ElevateRequest) elevReqs
+address[] elevReqsArray
+
+mapping(string => MoneyRequest) moneyReqs
+string[] moneyReqsArray
+
+Методы:
+    1. operateElevationRequest(address requestAuthor, bool accept) - разрешить или запретить изменение роли (в зависимости от accept)
+    2. operateMoneyRequest(string shopCity, bool accept) - выдать или отклонить запрос на займ (если разрешить, то нужно отправить в транзакции то количество wei, что запрашивает магазин)
+    3. cancelElevationRequest() - отменить запрос на изменение роли (отправляет автор запроса)
+    4. cancelMoneyRequest() - отменить запрос на займ (отправляет автор запроса)
+    5. changeRole(address user, uint8 role, string shop, bool maxRole) - изменить роль пользователя:
+        - role - роль, на которую нужно поставить пользователя
+        - shop - магазин, к которому нужно причислить пользователя (необходимо при role == cashier и maxRole = true, иначе пустая строка)
+        - maxRole - если да, то мы изменяем максимально доступную роль пользователю (может только администратор), если нет - то изменяем текущую роль пользователя (в пределах его максимальной роли)
+    6. deleteShop(string city) - удалить магазин (может только администратор)
+    7. newElevateRequest(uint8 requiredRole, string shopCity) - отправить запрос на изменение роли (shopCity необходим при изменении на кассира)
+    8. newMoneyRequest(uint256 requiredSum) - отправить запрос на займ
+    9. newReview(string shop, string content, uint8 rate, uint32 parent) - новый отзыв (если ответ - указать в parent айди родителя)
+    10. newShop(string city, address owner) - создать новый магазин
+    11. rateReview(uint32 review, bool positive) - оценить отзыв
+
+    View методы:
+    1. authenticateUser(string username, string secret) - авторизовать пользователя
+    2. getElevateRequest(address sender) - получить запрос на изменение роли
+    3. getElevateRequests() - получить адреса пользователей, отправивших запрос на изменение роли
+    4. getMoneyRequest(string shopCity) - получить запрос на займ магазина
+    5. getMoneyRequests() - получить названия городов, которые отправляли запросы на займ
+    6. getReview(uint32 reviewid) - получить отзыв
+    7. getShopByCity(string city) - получить магазин по названию города
+    8. getShopByOwner(address owner) - получить магазин по адресу владельца
+    9. getShopReviews(string city) - получить ID отзывов магазина
+    10. getShops() - получить список магазинов
+    11. getUser(address addr) - получить пользователя по адресу
+    12. getUserAddress(string login) - получить адрес пользователя по логину
+    13. getUserLogins() - получить логины всех пользователей
+    14. getUserReviews(address userAddress) - получить отзывы пользователя по его адресу
